@@ -117,6 +117,8 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
 
 /* ============ COMMON COMPONENTS ============ */
 .btn { display: inline-flex; align-items: center; gap: 7px; height: 34px; padding: 0 13px; border-radius: var(--r-md); font-size: 13px; font-weight: 500; transition: all var(--t-fast) var(--ease-out); border: 1px solid transparent; white-space: nowrap; }
+.btn > svg { width: 14px; height: 14px; flex-shrink: 0; }
+.btn-sm > svg { width: 12px; height: 12px; }
 .btn-sm { height: 28px; padding: 0 10px; font-size: 12px; }
 .btn-secondary { background: var(--surface); border-color: var(--border); color: var(--text); }
 .btn-secondary:hover { border-color: var(--border-strong); background: var(--surface-soft); }
@@ -5321,7 +5323,7 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 .m-var-list-row.warn-row { border-left: 3px solid var(--warning, #B47B22); }
 .m-var-list-head { font-size: 10.5px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; background: var(--surface-soft); padding: 9px 14px; display: grid; grid-template-columns: 24px 180px 1fr 80px 80px 110px; gap: 12px; border-bottom: 1px solid var(--border); }
 .m-var-list-row .num, .m-var-list-head .num { text-align: right; font-family: var(--font-mono, monospace); font-size: 11px; color: var(--text-secondary); }
-.m-var-name { font-family: var(--font-mono, monospace); font-size: 12px; font-weight: 500; color: var(--text); }
+.m-var-name { font-family: var(--font-mono, monospace); font-size: 12px; font-weight: 500; color: var(--text); display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
 .m-var-name-warn { color: var(--warning, #B47B22); }
 .m-var-expr-preview { font-family: var(--font-mono, monospace); font-size: 11px; color: var(--text-tertiary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .m-var-kind-pill { display: inline-flex; align-items: center; padding: 1px 7px; border-radius: var(--r-sm); font-size: 9.5px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; }
@@ -5449,6 +5451,50 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 .m-fm-pill-overlay.cond { background: var(--warning-soft, #FBF1D8); color: var(--warning, #B47B22); border-color: var(--warning, #B47B22); }
 .m-fm-pill-overlay.lookup { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
 .m-fm-pill-overlay:hover { box-shadow: 0 1px 4px rgba(0,0,0,0.12); }
+
+/* ====== AI CO-MAPPING — 3 surfaces ====== */
+.m-ai-comap-panel { background: linear-gradient(135deg, var(--surface) 0%, var(--accent-soft) 100%); border: 1px solid var(--accent); border-radius: var(--r-lg); padding: 12px 16px; display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; position: relative; overflow: hidden; margin-bottom: 14px; }
+.m-ai-comap-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, var(--accent), #1A7873); }
+.m-ai-comap-icon { width: 34px; height: 34px; background: var(--accent); color: #fff; border-radius: var(--r-md); display: grid; place-items: center; flex-shrink: 0; }
+.m-ai-comap-icon svg { width: 18px; height: 18px; }
+.m-ai-comap-text { line-height: 1.5; }
+.m-ai-comap-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 700; margin-bottom: 2px; }
+.m-ai-comap-msg { font-size: 12.5px; color: var(--text); }
+.m-ai-comap-msg strong { font-weight: 600; }
+.m-ai-comap-msg code { background: var(--surface); border: 1px solid var(--border); padding: 1px 5px; border-radius: 3px; font-family: var(--font-mono, monospace); font-size: 11px; }
+.m-ai-comap-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.m-ai-explain-chip { display: inline-flex; align-items: center; gap: 3px; font-size: 8.5px; color: var(--accent); background: var(--accent-soft); padding: 1px 5px; border-radius: var(--r-full); cursor: pointer; border: 1px solid transparent; margin-left: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; transition: all var(--t-fast); white-space: nowrap; }
+.m-ai-explain-chip:hover { border-color: var(--accent); }
+.m-ai-explain-chip svg { width: 8px; height: 8px; }
+
+.m-ai-explain-popover { position: absolute; z-index: 50; width: 360px; background: var(--surface); border: 1px solid var(--accent); border-radius: var(--r-md); padding: 12px 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); font-size: 12px; line-height: 1.6; }
+.m-ai-explain-head { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
+.m-ai-explain-head svg { width: 13px; height: 13px; color: var(--accent); }
+.m-ai-explain-head-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); font-weight: 700; }
+.m-ai-explain-head-confidence { margin-left: auto; font-size: 10px; color: var(--text-tertiary); }
+.m-ai-explain-body { color: var(--text); }
+.m-ai-explain-body p { margin: 0 0 6px; }
+.m-ai-explain-body p:last-child { margin-bottom: 0; }
+.m-ai-explain-body code { background: var(--bg-subtle); padding: 1px 5px; border-radius: 3px; font-family: var(--font-mono, monospace); font-size: 11px; }
+.m-ai-explain-foot { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-soft); display: flex; gap: 10px; font-size: 10.5px; }
+.m-ai-explain-foot a { color: var(--accent); cursor: pointer; font-weight: 500; text-decoration: none; }
+.m-ai-explain-foot a:hover { text-decoration: underline; }
+.m-ai-explain-close { margin-left: auto; color: var(--text-tertiary); cursor: pointer; }
+
+.m-ai-fix-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--warning, #B47B22); border-radius: var(--r-md); padding: 12px 14px; display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; margin-top: 10px; }
+.m-ai-fix-icon { width: 30px; height: 30px; border-radius: var(--r-md); background: var(--warning-soft, #FBF1D8); color: var(--warning, #B47B22); display: grid; place-items: center; flex-shrink: 0; }
+.m-ai-fix-icon svg { width: 14px; height: 14px; }
+.m-ai-fix-content { font-size: 12px; }
+.m-ai-fix-title { font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.m-ai-fix-explain { color: var(--text-secondary); margin-bottom: 8px; line-height: 1.5; font-size: 11.5px; }
+.m-ai-fix-explain code { background: var(--bg-subtle); padding: 1px 5px; border-radius: 3px; font-family: var(--font-mono, monospace); font-size: 10.5px; }
+.m-ai-fix-suggestion { background: var(--accent-soft); border-radius: var(--r-md); padding: 8px 10px; margin-bottom: 8px; font-size: 11px; }
+.m-ai-fix-suggestion-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); font-weight: 700; margin-bottom: 3px; }
+.m-ai-fix-suggestion-code { font-family: var(--font-mono, monospace); font-size: 10.5px; color: var(--text); line-height: 1.5; }
+.m-ai-fix-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.m-ai-fix-confidence { margin-left: auto; font-size: 10px; color: var(--text-tertiary); }
+/* ====== END AI CO-MAPPING ====== */
 .m-fm-pill-overlay { position: absolute; pointer-events: auto; cursor: pointer; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; background: #ECE6F5; color: #6B4FA8; border: 1px solid #6B4FA8; border-radius: var(--r-full); font-size: 9.5px; font-weight: 600; white-space: nowrap; max-width: 140px; }
 .m-fm-pill-overlay svg { width: 10px; height: 10px; }
 .m-fm-pill-overlay.cond { background: var(--warning-soft, #FBF1D8); color: var(--warning, #B47B22); border-color: var(--warning, #B47B22); }
@@ -14942,6 +14988,137 @@ function m_switchTab(tab) {
   m_renderActiveTab();
 }
 
+// === AI CO-MAPPING helpers ===
+function m_aiComapHtml() {
+  // Surface 1 — context-aware co-mapping panel that lives at the top of each tab
+  const tab = m_activeTab;
+  let label = 'AI Co-mapping · 3 suggestions';
+  let msg = '';
+  switch (tab) {
+    case 'overview':
+      msg = `<strong>2 unhandled order codes</strong> in production are routing to the <code>ClinicalChemistry_V2</code> fallback. I can draft a new condition branch for <code>Z99</code> and <code>999</code> &mdash; review before applying.`;
+      break;
+    case 'variables':
+      msg = `<strong>4 variables</strong> below 70% coverage. The biggest miss: <code>OBX_SpecialInstructions</code> (67%) &mdash; likely linked to the NTE-segment join. Want me to draft a fix?`;
+      break;
+    case 'fieldmap':
+      msg = `<strong>Specimen site</strong> mapping uses cross-segment joins with index. I can rewrite this as a single XPath with fallbacks &mdash; safer and 30% faster.`;
+      break;
+    case 'conditions':
+      msg = `<strong>NIPT generic branch C7</strong> hasn't fired in 34 days. Either the upstream changed or the rule is stale. I can verify against the last 1,000 messages.`;
+      break;
+    case 'lookups':
+      msg = `Refreshing the 2 stale lookups (<code>SiteName</code>, <code>BodySiteName</code>) would resolve <strong>239 of 752 misses</strong> last 7d. I can pull updated rows from Quest's vendor sheet.`;
+      break;
+    case 'tests':
+      msg = `<strong>2 failing tests</strong> share a root cause: the C7 condition catches Z99 when it shouldn't. One fix would close both.`;
+      break;
+    case 'history':
+      msg = `<strong>Casetype expression</strong> has changed 7 times in 90 days &mdash; that's the change hot-spot. Worth refactoring to a lookup table.`;
+      break;
+    default:
+      msg = `I'm watching this mapping. Nothing urgent right now. Ask me anything about variables, conditions, or test failures.`;
+  }
+  return `<div class="m-ai-comap-panel">
+    <div class="m-ai-comap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+    <div class="m-ai-comap-text">
+      <div class="m-ai-comap-label">${label}</div>
+      <div class="m-ai-comap-msg">${msg}</div>
+    </div>
+    <div class="m-ai-comap-actions">
+      <button class="btn btn-ghost btn-sm" onclick="m_toast('Co-pilot dismissed for this session')">Dismiss</button>
+      <button class="btn btn-secondary btn-sm" onclick="m_toast('Opening all AI suggestions')">See all</button>
+      <button class="btn btn-primary btn-sm" onclick="m_openSandbox()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Draft fix</button>
+    </div>
+  </div>`;
+}
+
+function m_aiExplainChip(targetId, kind) {
+  // Surface 2 — per-row Explain chip that opens a popover
+  return `<span class="m-ai-explain-chip" onclick="event.stopPropagation();m_openAiExplain('${m_esc(targetId)}','${kind}',event)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Explain</span>`;
+}
+
+function m_openAiExplain(targetId, kind, ev) {
+  // Remove any existing popover first
+  const existing = document.getElementById('m-ai-explain-popover');
+  if (existing) existing.remove();
+  // Generate explanation based on kind+id (canned responses for now)
+  const explanations = {
+    'OBX_SpecialInstructions': {
+      conf: 'high',
+      body: `<p>This XSLT walks every <code>OBX</code> segment that's a child of the current <code>OBR</code>, picks the ones where the parent matches, and joins their text values with a comma.</p><p>In plain terms: <strong>it gathers all special instruction notes for this order and combines them into one field.</strong></p><p style="color:var(--warning, #B47B22)"><strong>Why coverage is only 67%:</strong> 33% of messages have no NTE segment linked to the OBR, so this XSLT returns empty. Worth confirming with Quest if it should default to something.</p>`
+    },
+    'OBR_SpecialInstructions': {
+      conf: 'high',
+      body: `<p>Concatenates all <code>NTE.3.1</code> entries that are linked to the current OBR row.</p><p><strong>Plain meaning: pulls all comments attached to this order into one string.</strong></p><p style="color:var(--warning, #B47B22)">Coverage 38% &mdash; most orders have no NTE notes. That's expected, not a bug.</p>`
+    },
+    'Casetype': {
+      conf: 'medium',
+      body: `<p>Looks up the case type using a <strong>50-condition expression</strong> against <code>OBR.4.1</code> (order code).</p><p><strong>Plain meaning: routes each message to one of 7 case types based on which order code it carries.</strong></p><p style="color:var(--warning, #B47B22)">The fallback catches anything unmatched and routes it to <code>ClinicalChemistry_V2</code>. Z99 hits this fallback silently &mdash; that's the open bug.</p>`
+    }
+  };
+  const def = { conf: 'medium', body: `<p>This is a ${kind} variable. AI explanation will be generated by the connected model when integration ships.</p><p><strong>Today this is canned demo content</strong> &mdash; the production version will explain the actual expression in plain English with confidence scoring.</p>` };
+  const data = explanations[targetId] || def;
+  // Build popover
+  const pop = document.createElement('div');
+  pop.className = 'm-ai-explain-popover';
+  pop.id = 'm-ai-explain-popover';
+  pop.innerHTML = `<div class="m-ai-explain-head">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <span class="m-ai-explain-head-label">AI explanation</span>
+    <span class="m-ai-explain-head-confidence">Confidence: ${data.conf}</span>
+    <span class="m-ai-explain-close" onclick="document.getElementById('m-ai-explain-popover').remove()">&times;</span>
+  </div>
+  <div class="m-ai-explain-body">${data.body}</div>
+  <div class="m-ai-explain-foot">
+    <a onclick="m_toast('Open in BA mode')">View in BA mode &rarr;</a>
+    <a onclick="m_toast('Find similar variables')">Similar &rarr;</a>
+    <a style="margin-left:auto;color:var(--text-tertiary)" onclick="m_toast('Thanks for the feedback')">Helpful?</a>
+  </div>`;
+  // Position near the click, or top-right of viewport as fallback
+  document.body.appendChild(pop);
+  const rect = pop.getBoundingClientRect();
+  let x = (ev && ev.clientX) ? ev.clientX - rect.width / 2 : window.innerWidth - rect.width - 40;
+  let y = (ev && ev.clientY) ? ev.clientY + 12 : 100;
+  // Keep on screen
+  x = Math.max(10, Math.min(x, window.innerWidth - rect.width - 10));
+  y = Math.max(10, Math.min(y, window.innerHeight - rect.height - 10));
+  pop.style.left = x + 'px';
+  pop.style.top = y + 'px';
+  // Auto-close on outside click
+  setTimeout(() => {
+    document.addEventListener('click', function closer(e) {
+      const p = document.getElementById('m-ai-explain-popover');
+      if (p && !p.contains(e.target)) {
+        p.remove();
+        document.removeEventListener('click', closer);
+      }
+    });
+  }, 50);
+}
+
+function m_aiFixCard(opts) {
+  // Surface 3 — inline AI fix card for drift findings / failing tests
+  return `<div class="m-ai-fix-card">
+    <div class="m-ai-fix-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+    <div class="m-ai-fix-content">
+      <div class="m-ai-fix-title">${opts.title}</div>
+      <div class="m-ai-fix-explain">${opts.explain}</div>
+      <div class="m-ai-fix-suggestion">
+        <div class="m-ai-fix-suggestion-label">Suggested fix</div>
+        <div class="m-ai-fix-suggestion-code">${opts.suggestion}</div>
+      </div>
+      <div class="m-ai-fix-actions">
+        <button class="btn btn-ghost btn-sm" onclick="m_toast('Suggestion ignored')">Ignore</button>
+        <button class="btn btn-secondary btn-sm" onclick="m_toast('Full reasoning panel opens here')">See full reasoning</button>
+        <button class="btn btn-primary btn-sm" onclick="m_openSandbox()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Try in Sandbox</button>
+        <span class="m-ai-fix-confidence">Confidence: ${opts.conf || 'medium'} &middot; ${opts.history || '8 similar fixes accepted'}</span>
+      </div>
+    </div>
+  </div>`;
+}
+// === END AI CO-MAPPING helpers ===
+
 function m_renderActiveTab() {
   switch (m_activeTab) {
     case 'overview':   m_renderOverview(); break;
@@ -14953,6 +15130,13 @@ function m_renderActiveTab() {
     case 'tests':      m_renderTests(); break;
     case 'usedby':     m_renderUsedBy(); break;
     case 'history':    m_renderHistory(); break;
+  }
+  // Inject AI Co-mapping panel at top of active pane (Surface 1)
+  const activePane = document.querySelector('#screen-mapping-detail .m-tab-pane.active');
+  if (activePane && !activePane.querySelector('.m-ai-comap-panel')) {
+    const wrap = document.createElement('div');
+    wrap.innerHTML = m_aiComapHtml();
+    activePane.insertBefore(wrap.firstChild, activePane.firstChild);
   }
 }
 
@@ -15045,6 +15229,13 @@ function m_renderOverview() {
           </div>
         </div>
       `).join('')}
+      ${m_aiFixCard({
+        title: 'AI suggests: handle Z99 / 999 / UNK explicitly',
+        explain: 'The C7 fallback condition <code>$OrderCode != &#39;GYNHist&#39; and $OrderCode != &#39;BreastHist&#39;</code> is matching <code>Z99</code>, <code>999</code>, and <code>UNK</code> when those should route differently. <strong>62 production messages</strong> hit this fallback last week.',
+        suggestion: 'Add a new C0 branch above C1 with:<br><code>$OrderCode = &#39;Z99&#39; or $OrderCode = &#39;999&#39; or $OrderCode = &#39;UNK&#39;</code><br>routing to a new <code>UnhandledOrder</code> case profile.',
+        conf: 'medium',
+        history: '8 similar fixes accepted'
+      })}
     </div>
 
     <!-- Top 3 improvement actions -->
@@ -15094,7 +15285,7 @@ function m_renderVariables() {
     const isWarn = !!vbl.warn;
     return `<div class="m-var-list-row ${m_selectedVar===vbl.name?'selected':''} ${isWarn?'warn-row':''}" onclick="m_selectVar('${vbl.name}')">
       <div class="num">${idx+1}</div>
-      <div><div class="m-var-name ${isWarn?'m-var-name-warn':''}">${m_esc(vbl.name)}</div><div style="font-size:10.5px;color:var(--text-tertiary);margin-top:1px">${m_esc(vbl.desc)}</div></div>
+      <div><div class="m-var-name ${isWarn?'m-var-name-warn':''}">${m_esc(vbl.name)}${m_aiExplainChip(vbl.name, vbl.kind)}</div><div style="font-size:10.5px;color:var(--text-tertiary);margin-top:1px">${m_esc(vbl.desc)}</div></div>
       <div class="m-var-expr-preview" title="${m_esc(vbl.expr)}">${m_esc(vbl.expr.length>80?vbl.expr.substring(0,80)+'...':vbl.expr)}</div>
       <div><span class="m-var-kind-pill ${vbl.kind}">${m_esc(vbl.kind)}</span></div>
       <div class="num"><span class="m-cov-pct ${covCls}">${cov}%</span></div>
