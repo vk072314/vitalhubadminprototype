@@ -5495,6 +5495,184 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 .m-ai-fix-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
 .m-ai-fix-confidence { margin-left: auto; font-size: 10px; color: var(--text-tertiary); }
 /* ====== END AI CO-MAPPING ====== */
+
+/* ====== ADD VARIABLE side drawer ====== */
+.m-addvar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.32); z-index: 200; opacity: 0; pointer-events: none; transition: opacity var(--t-fast); }
+.m-addvar-overlay.open { opacity: 1; pointer-events: auto; }
+.m-addvar-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 480px; max-width: 95vw; background: var(--surface); border-left: 1px solid var(--border); box-shadow: -8px 0 24px rgba(0,0,0,0.10); z-index: 201; transform: translateX(100%); transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; }
+.m-addvar-drawer.open { transform: translateX(0); }
+.m-addvar-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.m-addvar-title { font-size: 15px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.m-addvar-title svg { width: 16px; height: 16px; color: var(--accent); }
+.m-addvar-close { background: none; border: none; cursor: pointer; padding: 6px; border-radius: var(--r-sm); color: var(--text-secondary); display: grid; place-items: center; }
+.m-addvar-close:hover { background: var(--bg-subtle); }
+.m-addvar-close svg { width: 16px; height: 16px; }
+.m-addvar-body { flex: 1; overflow-y: auto; padding: 16px 18px 24px; }
+.m-addvar-field { margin-bottom: 16px; }
+.m-addvar-label { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 6px; }
+.m-addvar-label .req { color: var(--danger); margin-left: 3px; }
+.m-addvar-input, .m-addvar-textarea { width: 100%; padding: 8px 11px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); font-size: 13px; font-family: inherit; color: var(--text); transition: border-color var(--t-fast); }
+.m-addvar-input:focus, .m-addvar-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.m-addvar-textarea { resize: vertical; min-height: 70px; font-family: var(--font-mono, monospace); font-size: 12px; line-height: 1.5; }
+.m-addvar-hint { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; line-height: 1.4; }
+.m-addvar-hint.error { color: var(--danger); }
+.m-addvar-hint.success { color: var(--success); }
+.m-addvar-kind-group { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.m-addvar-kind-btn { padding: 8px 6px; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r-md); font-size: 11.5px; font-weight: 500; color: var(--text-secondary); cursor: pointer; font-family: inherit; text-align: center; transition: all var(--t-fast); }
+.m-addvar-kind-btn:hover { border-color: var(--accent); color: var(--accent); }
+.m-addvar-kind-btn.selected { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.m-addvar-helper-row { display: flex; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
+.m-addvar-helper-link { font-size: 11px; color: var(--accent); cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
+.m-addvar-helper-link:hover { text-decoration: underline; }
+.m-addvar-helper-link svg { width: 11px; height: 11px; }
+.m-addvar-test-block { margin-top: 14px; padding: 12px; background: var(--bg-subtle); border-radius: var(--r-md); border: 1px solid var(--border-soft); }
+.m-addvar-test-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); }
+.m-addvar-test-result { font-family: var(--font-mono, monospace); font-size: 11.5px; padding: 8px 10px; background: var(--surface); border-radius: var(--r-sm); border: 1px solid var(--border-soft); color: var(--text); display: flex; align-items: center; gap: 8px; }
+.m-addvar-test-result.ok { border-left: 3px solid var(--success); }
+.m-addvar-test-result.warn { border-left: 3px solid var(--warning, #B47B22); }
+.m-addvar-test-result.bad { border-left: 3px solid var(--danger); }
+.m-addvar-test-result-icon { width: 14px; height: 14px; flex-shrink: 0; }
+.m-addvar-test-result.ok .m-addvar-test-result-icon { color: var(--success); }
+.m-addvar-test-result.warn .m-addvar-test-result-icon { color: var(--warning, #B47B22); }
+.m-addvar-test-result.bad .m-addvar-test-result-icon { color: var(--danger); }
+.m-addvar-divider { border-top: 1px solid var(--border-soft); margin: 18px 0 14px; }
+.m-addvar-info { display: flex; gap: 8px; padding: 10px 12px; background: var(--accent-soft); border-radius: var(--r-md); font-size: 11.5px; color: var(--text); line-height: 1.5; }
+.m-addvar-info svg { width: 14px; height: 14px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.m-addvar-foot { padding: 12px 18px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; flex-shrink: 0; background: var(--surface-soft); }
+/* ====== END ADD VARIABLE ====== */
+
+/* ====== NEW LOOKUP side drawer ====== */
+.v-newlkp-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.32); z-index: 200; opacity: 0; pointer-events: none; transition: opacity var(--t-fast); }
+.v-newlkp-overlay.open { opacity: 1; pointer-events: auto; }
+.v-newlkp-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 540px; max-width: 95vw; background: var(--surface); border-left: 1px solid var(--border); box-shadow: -8px 0 24px rgba(0,0,0,0.10); z-index: 201; transform: translateX(100%); transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; }
+.v-newlkp-drawer.open { transform: translateX(0); }
+.v-newlkp-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.v-newlkp-title { font-size: 15px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.v-newlkp-title svg { width: 16px; height: 16px; color: var(--accent); }
+.v-newlkp-close { background: none; border: none; cursor: pointer; padding: 6px; border-radius: var(--r-sm); color: var(--text-secondary); display: grid; place-items: center; }
+.v-newlkp-close:hover { background: var(--bg-subtle); }
+.v-newlkp-close svg { width: 16px; height: 16px; }
+.v-newlkp-body { flex: 1; overflow-y: auto; padding: 16px 18px 24px; }
+.v-newlkp-section { padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--border-soft); }
+.v-newlkp-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.v-newlkp-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 10px; }
+.v-newlkp-field { margin-bottom: 14px; }
+.v-newlkp-field:last-child { margin-bottom: 0; }
+.v-newlkp-label { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 6px; }
+.v-newlkp-label .req { color: var(--danger); margin-left: 3px; }
+.v-newlkp-input, .v-newlkp-select, .v-newlkp-textarea { width: 100%; padding: 8px 11px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); font-size: 13px; font-family: inherit; color: var(--text); transition: border-color var(--t-fast); }
+.v-newlkp-input:focus, .v-newlkp-select:focus, .v-newlkp-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.v-newlkp-textarea { resize: vertical; min-height: 60px; line-height: 1.5; }
+.v-newlkp-hint { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; line-height: 1.4; }
+.v-newlkp-hint.error { color: var(--danger); }
+.v-newlkp-hint.success { color: var(--success); }
+.v-newlkp-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.v-newlkp-radio-group { display: flex; flex-direction: column; gap: 6px; }
+.v-newlkp-radio { display: flex; align-items: flex-start; gap: 8px; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: var(--r-md); cursor: pointer; transition: all var(--t-fast); }
+.v-newlkp-radio:hover { border-color: var(--accent); }
+.v-newlkp-radio.selected { border-color: var(--accent); background: var(--accent-soft); }
+.v-newlkp-radio input { margin-top: 2px; accent-color: var(--accent); }
+.v-newlkp-radio-content { flex: 1; }
+.v-newlkp-radio-title { font-size: 12.5px; font-weight: 600; color: var(--text); }
+.v-newlkp-radio-desc { font-size: 11px; color: var(--text-secondary); margin-top: 2px; line-height: 1.4; }
+.v-newlkp-tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--r-md); min-height: 36px; align-items: center; }
+.v-newlkp-tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: var(--accent-soft); color: var(--accent); border-radius: var(--r-full); font-size: 11px; font-weight: 500; }
+.v-newlkp-tag-remove { cursor: pointer; opacity: 0.7; padding: 0 2px; }
+.v-newlkp-tag-remove:hover { opacity: 1; }
+.v-newlkp-tag-input { flex: 1; min-width: 100px; border: none; background: transparent; font-size: 12px; padding: 4px; outline: none; font-family: inherit; }
+.v-newlkp-foot { padding: 12px 18px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; flex-shrink: 0; background: var(--surface-soft); }
+.v-newlkp-info { display: flex; gap: 8px; padding: 10px 12px; background: var(--accent-soft); border-radius: var(--r-md); font-size: 11.5px; color: var(--text); line-height: 1.5; }
+.v-newlkp-info svg { width: 14px; height: 14px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+/* ====== END NEW LOOKUP ====== */
+
+/* ====== REFRESH FROM STANDARD modal ====== */
+.v-rfs-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.42); z-index: 250; opacity: 0; pointer-events: none; transition: opacity var(--t-fast); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.v-rfs-overlay.open { opacity: 1; pointer-events: auto; }
+.v-rfs-modal { background: var(--surface); border-radius: var(--r-lg); box-shadow: 0 24px 48px rgba(0,0,0,0.18); width: 880px; max-width: 100%; max-height: 92vh; transform: scale(0.97); transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; overflow: hidden; }
+.v-rfs-overlay.open .v-rfs-modal { transform: scale(1); }
+.v-rfs-head { padding: 16px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.v-rfs-title { font-size: 16px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 9px; }
+.v-rfs-title svg { width: 18px; height: 18px; color: var(--accent); }
+.v-rfs-close { background: none; border: none; cursor: pointer; padding: 6px; border-radius: var(--r-sm); color: var(--text-secondary); display: grid; place-items: center; }
+.v-rfs-close:hover { background: var(--bg-subtle); }
+.v-rfs-close svg { width: 16px; height: 16px; }
+.v-rfs-body { flex: 1; overflow-y: auto; padding: 18px 22px; }
+.v-rfs-foot { padding: 12px 22px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: space-between; align-items: center; flex-shrink: 0; background: var(--surface-soft); }
+.v-rfs-foot-left { font-size: 11.5px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
+.v-rfs-foot-right { display: flex; gap: 8px; }
+
+/* Step 1 — picker */
+.v-rfs-picker-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.v-rfs-picker-row { display: grid; grid-template-columns: 32px 1fr auto auto; gap: 12px; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: var(--r-md); cursor: pointer; transition: all var(--t-fast); align-items: center; }
+.v-rfs-picker-row:hover { border-color: var(--accent); background: var(--accent-soft); }
+.v-rfs-picker-row.selected { border-color: var(--accent); background: var(--accent-soft); }
+.v-rfs-picker-row.disabled { opacity: 0.5; cursor: not-allowed; background: var(--bg-subtle); }
+.v-rfs-picker-row.disabled:hover { border-color: var(--border); background: var(--bg-subtle); }
+.v-rfs-picker-icon { width: 32px; height: 32px; border-radius: var(--r-md); display: grid; place-items: center; flex-shrink: 0; background: var(--accent-soft); color: var(--accent); }
+.v-rfs-picker-icon svg { width: 16px; height: 16px; }
+.v-rfs-picker-name { font-size: 13.5px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.v-rfs-picker-meta { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+.v-rfs-picker-pill { font-size: 10px; padding: 1px 7px; background: var(--bg-subtle); color: var(--text-secondary); border-radius: var(--r-full); font-weight: 500; }
+.v-rfs-picker-pill.bound { background: var(--accent-soft); color: var(--accent); }
+.v-rfs-picker-pill.stale { background: var(--warning-soft, #FBF1D8); color: var(--warning, #B47B22); }
+.v-rfs-picker-rows { font-size: 11.5px; color: var(--text-secondary); font-variant-numeric: tabular-nums; text-align: right; }
+.v-rfs-picker-refr { font-size: 11px; color: var(--text-tertiary); text-align: right; min-width: 90px; }
+
+/* Step 2 — diff preview */
+.v-rfs-source-card { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 12px 14px; background: var(--surface-soft); border: 1px solid var(--border); border-radius: var(--r-md); margin-bottom: 16px; }
+.v-rfs-source-side { font-size: 12px; }
+.v-rfs-source-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); font-weight: 700; margin-bottom: 4px; }
+.v-rfs-source-name { font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.v-rfs-source-meta { font-size: 11px; color: var(--text-secondary); }
+.v-rfs-source-arrow { display: grid; place-items: center; color: var(--accent); }
+.v-rfs-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+.v-rfs-summary-tile { padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--r-md); cursor: pointer; transition: all var(--t-fast); background: var(--surface); }
+.v-rfs-summary-tile:hover { border-color: var(--accent); }
+.v-rfs-summary-tile.active { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 2px var(--accent-soft); }
+.v-rfs-summary-tile-label { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700; margin-bottom: 4px; }
+.v-rfs-summary-tile.added .v-rfs-summary-tile-label { color: var(--success); }
+.v-rfs-summary-tile.changed .v-rfs-summary-tile-label { color: var(--warning, #B47B22); }
+.v-rfs-summary-tile.removed .v-rfs-summary-tile-label { color: var(--danger); }
+.v-rfs-summary-tile.unchanged .v-rfs-summary-tile-label { color: var(--text-tertiary); }
+.v-rfs-summary-tile-count { font-size: 20px; font-weight: 600; font-family: var(--font-display, serif); font-variant-numeric: tabular-nums; }
+.v-rfs-summary-tile-sub { font-size: 10.5px; color: var(--text-tertiary); margin-top: 1px; }
+
+.v-rfs-diff-table-wrap { border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; max-height: 320px; overflow-y: auto; }
+.v-rfs-diff-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.v-rfs-diff-table thead th { position: sticky; top: 0; background: var(--surface-soft); padding: 8px 12px; text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); font-weight: 600; border-bottom: 1px solid var(--border); }
+.v-rfs-diff-table tbody td { padding: 8px 12px; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+.v-rfs-diff-table tbody tr:last-child td { border-bottom: none; }
+.v-rfs-diff-row.added { background: rgba(63, 127, 78, 0.04); }
+.v-rfs-diff-row.added td:first-child { border-left: 3px solid var(--success); }
+.v-rfs-diff-row.changed { background: rgba(180, 123, 34, 0.04); }
+.v-rfs-diff-row.changed td:first-child { border-left: 3px solid var(--warning, #B47B22); }
+.v-rfs-diff-row.removed { background: rgba(181, 64, 59, 0.04); }
+.v-rfs-diff-row.removed td:first-child { border-left: 3px solid var(--danger); }
+.v-rfs-diff-row.removed td { color: var(--text-secondary); text-decoration: line-through; text-decoration-color: var(--danger); }
+.v-rfs-diff-key { font-family: var(--font-mono, monospace); font-weight: 500; font-size: 11.5px; }
+.v-rfs-diff-arrow { color: var(--text-tertiary); font-size: 11px; padding: 0 4px; }
+.v-rfs-diff-old { color: var(--text-tertiary); text-decoration: line-through; font-size: 11px; }
+.v-rfs-diff-new { color: var(--text); font-weight: 500; }
+.v-rfs-diff-empty { padding: 32px 20px; text-align: center; color: var(--text-tertiary); font-size: 12px; }
+
+.v-rfs-options { margin-top: 16px; padding: 12px 14px; background: var(--bg-subtle); border-radius: var(--r-md); border: 1px solid var(--border-soft); }
+.v-rfs-options-title { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); font-weight: 700; margin-bottom: 8px; }
+.v-rfs-options-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; font-size: 12px; }
+.v-rfs-options-row:last-child { margin-bottom: 0; }
+.v-rfs-options-row input { margin-top: 2px; accent-color: var(--accent); }
+.v-rfs-options-row-text { flex: 1; line-height: 1.5; }
+.v-rfs-options-row-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+
+.v-rfs-info { display: flex; gap: 8px; padding: 10px 12px; background: var(--accent-soft); border-radius: var(--r-md); font-size: 11.5px; color: var(--text); line-height: 1.5; margin-top: 14px; }
+.v-rfs-info svg { width: 14px; height: 14px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+
+/* Loading state during fetch */
+.v-rfs-loading { padding: 60px 20px; text-align: center; }
+.v-rfs-spinner { display: inline-block; width: 26px; height: 26px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: v-rfs-spin 0.7s linear infinite; }
+@keyframes v-rfs-spin { to { transform: rotate(360deg); } }
+.v-rfs-loading-text { font-size: 13px; color: var(--text); margin-top: 14px; font-weight: 500; }
+.v-rfs-loading-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; }
+/* ====== END REFRESH FROM STANDARD ====== */
 .m-fm-pill-overlay { position: absolute; pointer-events: auto; cursor: pointer; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; background: #ECE6F5; color: #6B4FA8; border: 1px solid #6B4FA8; border-radius: var(--r-full); font-size: 9.5px; font-weight: 600; white-space: nowrap; max-width: 140px; }
 .m-fm-pill-overlay svg { width: 10px; height: 10px; }
 .m-fm-pill-overlay.cond { background: var(--warning-soft, #FBF1D8); color: var(--warning, #B47B22); border-color: var(--warning, #B47B22); }
@@ -11719,9 +11897,9 @@ IN1|1|BCBS-ON-PPO|BCBS001|BLUECROSS BLUESHIELD ONTARIO PPO GOLD
           <div class="v-lkp-actionbar">
             <div style="font-size:11.5px;color:var(--text-tertiary)">Reusable translation tables shared across mappings · keep clinical lookups bound to standards</div>
             <div style="display:flex;gap:8px">
-              <button class="btn btn-secondary btn-sm" onclick="v_lkpToast('Refresh from standard — coming soon')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Refresh from standard</button>
+              <button class="btn btn-secondary btn-sm" onclick="v_openRefreshStd()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Refresh from standard</button>
               <button class="btn btn-secondary btn-sm" onclick="v_lkpToast('CSV import — coming soon')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Import CSV</button>
-              <button class="btn btn-primary btn-sm" onclick="v_lkpToast('New lookup — coming soon')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New lookup</button>
+              <button class="btn btn-primary btn-sm" onclick="v_openNewLookup()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New lookup</button>
             </div>
           </div>
           <div class="v-filter-bar">
@@ -15119,6 +15297,1081 @@ function m_aiFixCard(opts) {
 }
 // === END AI CO-MAPPING helpers ===
 
+// === ADD VARIABLE drawer ===
+let m_addVarState = { kind: 'xpath', tested: false, testStatus: null, testValue: '' };
+
+function m_openAddVar() {
+  // Reset state
+  m_addVarState = { kind: 'xpath', tested: false, testStatus: null, testValue: '' };
+  // Build drawer if not present
+  let overlay = document.getElementById('m-addvar-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'm-addvar-overlay';
+    overlay.className = 'm-addvar-overlay';
+    overlay.onclick = m_closeAddVar;
+    document.body.appendChild(overlay);
+    const drawer = document.createElement('div');
+    drawer.id = 'm-addvar-drawer';
+    drawer.className = 'm-addvar-drawer';
+    document.body.appendChild(drawer);
+  }
+  document.getElementById('m-addvar-drawer').innerHTML = m_addVarHtml();
+  // Open with animation
+  setTimeout(() => {
+    document.getElementById('m-addvar-overlay').classList.add('open');
+    document.getElementById('m-addvar-drawer').classList.add('open');
+    const nameInput = document.getElementById('m-addvar-name');
+    if (nameInput) nameInput.focus();
+  }, 10);
+}
+
+function m_closeAddVar() {
+  const overlay = document.getElementById('m-addvar-overlay');
+  const drawer = document.getElementById('m-addvar-drawer');
+  if (overlay) overlay.classList.remove('open');
+  if (drawer) drawer.classList.remove('open');
+}
+
+function m_addVarHtml() {
+  const kind = m_addVarState.kind;
+  const exprPlaceholder = {
+    'xpath':     'HL7Message/OBR/OBR.4.1',
+    'lookup':    'GetMappingValue(&#39;Order&#39;, HL7Message/OBR/OBR.4/OBR.4.1)',
+    'condition': 'GetMatchingConditionValue($OrderCode = &#39;GYNHist&#39; → &#39;GYNHist_OR&#39;, default → &#39;ClinicalChem_V2&#39;)',
+    'xslt':      '_xsltfunction:ConcatNodeAttributes(HL7Message/NTE[./@parent=$OBRid]/NTE.3.1, &quot;,&quot;)'
+  };
+  const kindHelp = {
+    'xpath':     'Direct read from an HL7 path. Fastest. Use when the value is in one place with no transform.',
+    'lookup':    'Translate a source value via a lookup table (e.g., Order Code → Internal Order). Use when values map 1:1 across vendors.',
+    'condition': 'Branch logic — different output depending on input rules. Use when the same source can mean different things.',
+    'xslt':      'Custom XSLT function for cross-segment joins, concatenation, or complex transforms. Use only when no simpler kind fits.'
+  };
+  const helperLabel = { xpath: 'XPath helper', lookup: 'Lookup picker', condition: 'Condition tree builder', xslt: 'XSLT function helper' };
+  const helperToast = helperLabel[kind] || 'Helper';
+  return `
+    <div class="m-addvar-head">
+      <div class="m-addvar-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New variable</div>
+      <button class="m-addvar-close" onclick="m_closeAddVar()" title="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="m-addvar-body">
+
+      <div class="m-addvar-field">
+        <label class="m-addvar-label" for="m-addvar-name">Name <span class="req">*</span></label>
+        <input type="text" id="m-addvar-name" class="m-addvar-input" placeholder="e.g., OBR_PerformingLab" oninput="m_addVarValidateName()" autocomplete="off"/>
+        <div class="m-addvar-hint" id="m-addvar-name-hint">Used in expressions and traces. Must be unique within this mapping. Letters, numbers, underscores only.</div>
+      </div>
+
+      <div class="m-addvar-field">
+        <label class="m-addvar-label">Kind <span class="req">*</span></label>
+        <div class="m-addvar-kind-group">
+          <button type="button" class="m-addvar-kind-btn ${kind==='xpath'?'selected':''}" onclick="m_addVarSetKind('xpath')">XPath</button>
+          <button type="button" class="m-addvar-kind-btn ${kind==='lookup'?'selected':''}" onclick="m_addVarSetKind('lookup')">Lookup</button>
+          <button type="button" class="m-addvar-kind-btn ${kind==='condition'?'selected':''}" onclick="m_addVarSetKind('condition')">Condition</button>
+          <button type="button" class="m-addvar-kind-btn ${kind==='xslt'?'selected':''}" onclick="m_addVarSetKind('xslt')">XSLT</button>
+        </div>
+        <div class="m-addvar-hint">${kindHelp[kind]}</div>
+      </div>
+
+      <div class="m-addvar-field">
+        <label class="m-addvar-label" for="m-addvar-expr">Expression <span class="req">*</span></label>
+        <textarea id="m-addvar-expr" class="m-addvar-textarea" placeholder="${exprPlaceholder[kind]}" oninput="m_addVarOnExprChange()" spellcheck="false"></textarea>
+        <div class="m-addvar-helper-row">
+          <span class="m-addvar-helper-link" onclick="m_toast('AI co-mapping: suggest expression based on field name')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>AI suggest</span>
+          <span class="m-addvar-helper-link" onclick="m_toast('Insert path from sample HL7 viewer')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Insert from sample</span>
+          <span class="m-addvar-helper-link" onclick="m_toast('Open ${helperToast}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>${helperToast}</span>
+        </div>
+      </div>
+
+      <div class="m-addvar-field">
+        <label class="m-addvar-label" for="m-addvar-desc">Description (BA-friendly)</label>
+        <input type="text" id="m-addvar-desc" class="m-addvar-input" placeholder="One-line plain English. Helps BAs read the mapping without opening the expression."/>
+        <div class="m-addvar-hint">Recommended &mdash; affects mapping readability score.</div>
+      </div>
+
+      <div class="m-addvar-field">
+        <label class="m-addvar-label" for="m-addvar-default">Default value (optional)</label>
+        <input type="text" id="m-addvar-default" class="m-addvar-input" placeholder="What to use when expression returns empty"/>
+      </div>
+
+      <div class="m-addvar-test-block">
+        <div class="m-addvar-test-head">
+          <span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:middle;margin-right:4px"><polygon points="5 3 19 12 5 21 5 3"/></svg>Test against sample message</span>
+          <button class="btn btn-secondary btn-sm" onclick="m_addVarRunTest()" style="height:24px;font-size:11px;padding:0 10px">Run test</button>
+        </div>
+        <div style="font-size:11px;color:var(--text-tertiary);margin-bottom:8px">Sample: Quest_BS01_breast_biopsy.hl7 &middot; <a style="color:var(--accent);cursor:pointer" onclick="m_toast('Change sample message')">change</a></div>
+        <div id="m-addvar-test-result-wrap"></div>
+      </div>
+
+      <div class="m-addvar-divider"></div>
+
+      <div class="m-addvar-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <div><strong>What happens when you save:</strong> the variable is created as a draft. All 12 tests re-run automatically. Mapping health is recalculated. The change appears in History. Promote when you&#39;re ready.</div>
+      </div>
+
+    </div>
+    <div class="m-addvar-foot">
+      <button class="btn btn-ghost btn-sm" onclick="m_closeAddVar()">Cancel</button>
+      <button class="btn btn-secondary btn-sm" onclick="m_addVarSave(true)">Save as draft</button>
+      <button class="btn btn-primary btn-sm" onclick="m_addVarSave(false)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Save &amp; test</button>
+    </div>
+  `;
+}
+
+function m_addVarSetKind(kind) {
+  m_addVarState.kind = kind;
+  m_addVarState.tested = false;
+  // Re-render keeping the user&#39;s typed values
+  const name = document.getElementById('m-addvar-name')?.value || '';
+  const expr = document.getElementById('m-addvar-expr')?.value || '';
+  const desc = document.getElementById('m-addvar-desc')?.value || '';
+  const def  = document.getElementById('m-addvar-default')?.value || '';
+  document.getElementById('m-addvar-drawer').innerHTML = m_addVarHtml();
+  // Restore values
+  if (document.getElementById('m-addvar-name')) document.getElementById('m-addvar-name').value = name;
+  if (document.getElementById('m-addvar-expr')) document.getElementById('m-addvar-expr').value = expr;
+  if (document.getElementById('m-addvar-desc')) document.getElementById('m-addvar-desc').value = desc;
+  if (document.getElementById('m-addvar-default')) document.getElementById('m-addvar-default').value = def;
+  if (name) m_addVarValidateName();
+}
+
+function m_addVarValidateName() {
+  const input = document.getElementById('m-addvar-name');
+  const hint = document.getElementById('m-addvar-name-hint');
+  if (!input || !hint) return;
+  const v = input.value.trim();
+  if (!v) {
+    hint.className = 'm-addvar-hint';
+    hint.textContent = 'Used in expressions and traces. Must be unique within this mapping. Letters, numbers, underscores only.';
+    return;
+  }
+  if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(v)) {
+    hint.className = 'm-addvar-hint error';
+    hint.innerHTML = '&#9888; Use letters, numbers, and underscores only. Cannot start with a number.';
+    return;
+  }
+  // Check uniqueness against existing m_VARIABLES
+  const exists = m_VARIABLES.some(x => x.name.toLowerCase() === v.toLowerCase());
+  if (exists) {
+    hint.className = 'm-addvar-hint error';
+    hint.innerHTML = '&#9888; A variable named &quot;' + m_esc(v) + '&quot; already exists. Pick a different name.';
+    return;
+  }
+  hint.className = 'm-addvar-hint success';
+  hint.innerHTML = '&#10003; Looks good. Name is unique.';
+}
+
+function m_addVarOnExprChange() {
+  // Mark test as stale when expression changes
+  m_addVarState.tested = false;
+  const wrap = document.getElementById('m-addvar-test-result-wrap');
+  if (wrap && wrap.innerHTML.trim()) {
+    wrap.innerHTML = '<div style="font-size:11px;color:var(--text-tertiary);font-style:italic">Expression changed &mdash; click Run test to re-evaluate.</div>';
+  }
+}
+
+function m_addVarRunTest() {
+  const expr = document.getElementById('m-addvar-expr')?.value.trim() || '';
+  const wrap = document.getElementById('m-addvar-test-result-wrap');
+  if (!wrap) return;
+  if (!expr) {
+    wrap.innerHTML = '<div class="m-addvar-test-result bad"><svg class="m-addvar-test-result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>Expression is empty. Add one to test.</div>';
+    return;
+  }
+  // Demo: produce realistic results based on the expression content
+  let status = 'ok', value = '', note = '';
+  if (expr.includes('OBR.4.1')) { value = 'BS01'; }
+  else if (expr.includes('OBR.4.2')) { value = 'BIOPSY, BREAST'; }
+  else if (expr.includes('OBR.16')) { value = '1234567890'; note = 'NPI lookup OK'; }
+  else if (expr.includes('OBR.23')) { value = 'Quest Marlborough Lab'; }
+  else if (expr.includes('PID-3') || expr.includes('PID.3')) { value = '8472910^^^MRN'; }
+  else if (expr.includes('PID-7') || expr.includes('PID.7')) { value = '19840312'; }
+  else if (expr.includes('count(')) { value = '3'; note = 'integer count OK'; }
+  else if (expr.toLowerCase().includes('xsltfunction')) { value = '(string result)'; status = 'warn'; note = 'Resolved on 67% of sample messages &mdash; verify with Quest if some messages should default to a value'; }
+  else if (expr.toLowerCase().includes('getmappingvalue')) { value = '(lookup result)'; status = 'warn'; note = 'Lookup resolved &mdash; coverage depends on the lookup table'; }
+  else if (expr.toLowerCase().includes('getmatchingcondition')) { value = '(branch result)'; status = 'warn'; note = 'Condition matched a branch &mdash; verify all 7 case-types resolve'; }
+  else if (expr.startsWith('HL7Message/') || expr.startsWith('/HL7Message')) { value = '(extracted value)'; }
+  else { status = 'bad'; value = 'Expression syntax not recognised'; note = 'Check kind matches expression style'; }
+  m_addVarState.tested = (status !== 'bad');
+  m_addVarState.testStatus = status;
+  m_addVarState.testValue = value;
+  const icon = status === 'ok'
+    ? '<svg class="m-addvar-test-result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>'
+    : status === 'warn'
+    ? '<svg class="m-addvar-test-result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>'
+    : '<svg class="m-addvar-test-result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>';
+  wrap.innerHTML = `<div class="m-addvar-test-result ${status}">${icon}<div><strong>Result:</strong> ${m_esc(value)}${note ? `<div style="font-size:10.5px;color:var(--text-secondary);margin-top:3px;font-family:inherit">${note}</div>` : ''}</div></div>`;
+}
+
+function m_addVarSave(asDraft) {
+  const name = document.getElementById('m-addvar-name')?.value.trim() || '';
+  const expr = document.getElementById('m-addvar-expr')?.value.trim() || '';
+  const desc = document.getElementById('m-addvar-desc')?.value.trim() || '';
+  const def  = document.getElementById('m-addvar-default')?.value.trim() || '';
+  const kind = m_addVarState.kind;
+  // Validate
+  if (!name) {
+    m_toast('Name is required'); document.getElementById('m-addvar-name')?.focus(); return;
+  }
+  if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) {
+    m_toast('Name must use letters, numbers, underscores only'); document.getElementById('m-addvar-name')?.focus(); return;
+  }
+  if (m_VARIABLES.some(x => x.name.toLowerCase() === name.toLowerCase())) {
+    m_toast('A variable with this name already exists'); document.getElementById('m-addvar-name')?.focus(); return;
+  }
+  if (!expr) {
+    m_toast('Expression is required'); document.getElementById('m-addvar-expr')?.focus(); return;
+  }
+  // Append to in-memory variables list
+  const newVar = {
+    name: name,
+    kind: kind,
+    expr: expr,
+    desc: desc || ('(' + kind + ' variable)'),
+    hits: '0',
+    deps: [],
+    warn: false
+  };
+  m_VARIABLES.push(newVar);
+  // Add a coverage entry (new variable starts at 100% on the sample, will adjust over time)
+  if (typeof m_COVERAGE_VARS !== 'undefined') {
+    m_COVERAGE_VARS[name] = m_addVarState.tested ? (m_addVarState.testStatus === 'ok' ? 100 : 75) : 100;
+  }
+  // Close drawer, refresh list
+  m_closeAddVar();
+  if (m_activeTab === 'variables') {
+    m_renderVariables();
+    // Brief highlight on the new row
+    setTimeout(() => {
+      const rows = document.querySelectorAll('#m-pane-variables .m-var-list-row');
+      rows.forEach(r => {
+        const nameEl = r.querySelector('.m-var-name');
+        if (nameEl && nameEl.textContent.trim().startsWith(name)) {
+          r.style.background = 'var(--success-soft)';
+          r.style.transition = 'background 1.4s ease';
+          setTimeout(() => { r.style.background = ''; }, 100);
+          r.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    }, 50);
+  }
+  m_toast(asDraft
+    ? 'Saved as draft &middot; ' + name + ' &middot; tests will re-run on promote'
+    : 'Variable ' + name + ' added &middot; 12/12 tests passing &middot; mapping health unchanged');
+}
+// === END ADD VARIABLE drawer ===
+
+// === NEW LOOKUP drawer ===
+let v_newLkpState = { tenantScope: 'shared', missBehavior: 'log_warning', tags: [] };
+
+function v_openNewLookup() {
+  v_newLkpState = { tenantScope: 'shared', missBehavior: 'log_warning', tags: [] };
+  let overlay = document.getElementById('v-newlkp-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'v-newlkp-overlay';
+    overlay.className = 'v-newlkp-overlay';
+    overlay.onclick = v_closeNewLookup;
+    document.body.appendChild(overlay);
+    const drawer = document.createElement('div');
+    drawer.id = 'v-newlkp-drawer';
+    drawer.className = 'v-newlkp-drawer';
+    document.body.appendChild(drawer);
+  }
+  document.getElementById('v-newlkp-drawer').innerHTML = v_newLkpHtml();
+  setTimeout(() => {
+    document.getElementById('v-newlkp-overlay').classList.add('open');
+    document.getElementById('v-newlkp-drawer').classList.add('open');
+    const nameInput = document.getElementById('v-newlkp-name');
+    if (nameInput) nameInput.focus();
+  }, 10);
+}
+
+function v_closeNewLookup() {
+  const overlay = document.getElementById('v-newlkp-overlay');
+  const drawer = document.getElementById('v-newlkp-drawer');
+  if (overlay) overlay.classList.remove('open');
+  if (drawer) drawer.classList.remove('open');
+}
+
+function v_newLkpHtml() {
+  const tenantScope = v_newLkpState.tenantScope;
+  const missBehavior = v_newLkpState.missBehavior;
+  const tagsHtml = v_newLkpState.tags.map((t, i) => `<span class="v-newlkp-tag">${v_esc(t)}<span class="v-newlkp-tag-remove" onclick="v_newLkpRemoveTag(${i})">×</span></span>`).join('');
+  return `
+    <div class="v-newlkp-head">
+      <div class="v-newlkp-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New lookup</div>
+      <button class="v-newlkp-close" onclick="v_closeNewLookup()" title="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="v-newlkp-body">
+
+      <div class="v-newlkp-section">
+        <div class="v-newlkp-section-title">Basics</div>
+
+        <div class="v-newlkp-field">
+          <label class="v-newlkp-label" for="v-newlkp-name">Name <span class="req">*</span></label>
+          <input type="text" id="v-newlkp-name" class="v-newlkp-input" placeholder="e.g., LOINC_to_internal_codes" oninput="v_newLkpValidateName()" autocomplete="off"/>
+          <div class="v-newlkp-hint" id="v-newlkp-name-hint">Used in expressions like <code style="background:var(--bg-subtle);padding:1px 4px;border-radius:3px;font-family:var(--font-mono, monospace);font-size:11px">GetMappingValue(&#39;LookupName&#39;,&hellip;)</code> &middot; must be unique &middot; letters, numbers, underscores only.</div>
+        </div>
+
+        <div class="v-newlkp-field">
+          <label class="v-newlkp-label" for="v-newlkp-desc">Description</label>
+          <textarea id="v-newlkp-desc" class="v-newlkp-textarea" placeholder="What does this lookup translate? Used by BAs to understand intent without opening the rows."></textarea>
+        </div>
+
+        <div class="v-newlkp-row-2">
+          <div class="v-newlkp-field">
+            <label class="v-newlkp-label" for="v-newlkp-owner">Owner</label>
+            <select id="v-newlkp-owner" class="v-newlkp-select">
+              <option>Clinical Informatics</option>
+              <option>Operations</option>
+              <option>Integration Engineering</option>
+              <option>Compliance</option>
+            </select>
+          </div>
+          <div class="v-newlkp-field">
+            <label class="v-newlkp-label" for="v-newlkp-version">Initial version</label>
+            <input type="text" id="v-newlkp-version" class="v-newlkp-input" value="v1.0.0" placeholder="v1.0.0"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="v-newlkp-section">
+        <div class="v-newlkp-section-title">Standard binding</div>
+
+        <div class="v-newlkp-row-2">
+          <div class="v-newlkp-field">
+            <label class="v-newlkp-label" for="v-newlkp-standard">Standard</label>
+            <select id="v-newlkp-standard" class="v-newlkp-select">
+              <option value="">— None / custom —</option>
+              <option>LOINC</option>
+              <option>SNOMED CT</option>
+              <option>ICD-10-CM</option>
+              <option>RxNorm</option>
+              <option>HL7 v2 table</option>
+              <option>FHIR ValueSet</option>
+              <option>UCUM</option>
+              <option>CPT</option>
+            </select>
+          </div>
+          <div class="v-newlkp-field">
+            <label class="v-newlkp-label" for="v-newlkp-stdver">Standard version</label>
+            <input type="text" id="v-newlkp-stdver" class="v-newlkp-input" placeholder="e.g., v2.78"/>
+          </div>
+        </div>
+        <div class="v-newlkp-hint">Bind to a standard so &quot;Refresh from standard&quot; can pull updates automatically. Skip for tenant-specific custom lookups.</div>
+      </div>
+
+      <div class="v-newlkp-section">
+        <div class="v-newlkp-section-title">Scope</div>
+
+        <div class="v-newlkp-field">
+          <label class="v-newlkp-label">Visibility <span class="req">*</span></label>
+          <div class="v-newlkp-radio-group">
+            <label class="v-newlkp-radio ${tenantScope==='shared'?'selected':''}">
+              <input type="radio" name="ts" ${tenantScope==='shared'?'checked':''} onchange="v_newLkpSetScope(&#39;shared&#39;)"/>
+              <div class="v-newlkp-radio-content">
+                <div class="v-newlkp-radio-title">Shared (all tenants)</div>
+                <div class="v-newlkp-radio-desc">Use for clinical standards (LOINC, ICD-10) and cross-tenant references.</div>
+              </div>
+            </label>
+            <label class="v-newlkp-radio ${tenantScope==='tenant'?'selected':''}">
+              <input type="radio" name="ts" ${tenantScope==='tenant'?'checked':''} onchange="v_newLkpSetScope(&#39;tenant&#39;)"/>
+              <div class="v-newlkp-radio-content">
+                <div class="v-newlkp-radio-title">This tenant only (Crestline Labs)</div>
+                <div class="v-newlkp-radio-desc">Use for facility codes, vendor-specific mappings, internal identifiers.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="v-newlkp-section">
+        <div class="v-newlkp-section-title">Behavior</div>
+
+        <div class="v-newlkp-field">
+          <label class="v-newlkp-label">When a key is not found <span class="req">*</span></label>
+          <div class="v-newlkp-radio-group">
+            <label class="v-newlkp-radio ${missBehavior==='log_warning'?'selected':''}">
+              <input type="radio" name="mb" ${missBehavior==='log_warning'?'checked':''} onchange="v_newLkpSetMiss(&#39;log_warning&#39;)"/>
+              <div class="v-newlkp-radio-content">
+                <div class="v-newlkp-radio-title">Log warning &amp; pass through</div>
+                <div class="v-newlkp-radio-desc">Recommended &middot; surfaces in Drift Radar without breaking the message.</div>
+              </div>
+            </label>
+            <label class="v-newlkp-radio ${missBehavior==='pass_through'?'selected':''}">
+              <input type="radio" name="mb" ${missBehavior==='pass_through'?'checked':''} onchange="v_newLkpSetMiss(&#39;pass_through&#39;)"/>
+              <div class="v-newlkp-radio-content">
+                <div class="v-newlkp-radio-title">Silent pass through</div>
+                <div class="v-newlkp-radio-desc">Use for normalization where source value is acceptable as-is.</div>
+              </div>
+            </label>
+            <label class="v-newlkp-radio ${missBehavior==='default'?'selected':''}">
+              <input type="radio" name="mb" ${missBehavior==='default'?'checked':''} onchange="v_newLkpSetMiss(&#39;default&#39;)"/>
+              <div class="v-newlkp-radio-content">
+                <div class="v-newlkp-radio-title">Use a default value</div>
+                <div class="v-newlkp-radio-desc">Always returns the same fallback. Risky for clinical data.</div>
+              </div>
+            </label>
+            <label class="v-newlkp-radio ${missBehavior==='fail'?'selected':''}">
+              <input type="radio" name="mb" ${missBehavior==='fail'?'checked':''} onchange="v_newLkpSetMiss(&#39;fail&#39;)"/>
+              <div class="v-newlkp-radio-content">
+                <div class="v-newlkp-radio-title">Fail the message</div>
+                <div class="v-newlkp-radio-desc">Strict mode &middot; the message goes to DLQ if the key isn&#39;t in the table.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        ${missBehavior === 'default' ? `<div class="v-newlkp-field">
+          <label class="v-newlkp-label" for="v-newlkp-default">Default value <span class="req">*</span></label>
+          <input type="text" id="v-newlkp-default" class="v-newlkp-input" placeholder="e.g., UNKNOWN"/>
+        </div>` : ''}
+
+        <div class="v-newlkp-field">
+          <label class="v-newlkp-label">
+            <input type="checkbox" id="v-newlkp-case" style="vertical-align:middle;margin-right:6px;accent-color:var(--accent)"/>Case-sensitive lookup
+          </label>
+          <div class="v-newlkp-hint">Off = treat &quot;ABC&quot; and &quot;abc&quot; as the same key. Recommended for most clinical lookups.</div>
+        </div>
+      </div>
+
+      <div class="v-newlkp-section">
+        <div class="v-newlkp-section-title">Tags</div>
+        <div class="v-newlkp-tags" onclick="document.getElementById(&#39;v-newlkp-tag-input&#39;).focus()">
+          ${tagsHtml}
+          <input type="text" id="v-newlkp-tag-input" class="v-newlkp-tag-input" placeholder="${v_newLkpState.tags.length === 0 ? 'Add tags &middot; press Enter or comma' : ''}" onkeydown="v_newLkpHandleTagKey(event)"/>
+        </div>
+        <div class="v-newlkp-hint">Used for filtering &middot; e.g., clinical, laboratory, administrative, operations.</div>
+      </div>
+
+      <div class="v-newlkp-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <div><strong>What happens when you save:</strong> the lookup is created empty. After saving, you&#39;ll be able to add rows manually, paste from CSV, or refresh from the bound standard. The lookup appears in the library immediately and is ready to be referenced from any mapping.</div>
+      </div>
+
+    </div>
+    <div class="v-newlkp-foot">
+      <button class="btn btn-ghost btn-sm" onclick="v_closeNewLookup()">Cancel</button>
+      <button class="btn btn-primary btn-sm" onclick="v_newLkpSave()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Create lookup</button>
+    </div>
+  `;
+}
+
+function v_newLkpSetScope(scope) {
+  v_newLkpState.tenantScope = scope;
+  v_newLkpRefreshDrawer();
+}
+
+function v_newLkpSetMiss(behavior) {
+  v_newLkpState.missBehavior = behavior;
+  v_newLkpRefreshDrawer();
+}
+
+function v_newLkpRefreshDrawer() {
+  // Preserve user-typed values, re-render
+  const name = document.getElementById('v-newlkp-name')?.value || '';
+  const desc = document.getElementById('v-newlkp-desc')?.value || '';
+  const owner = document.getElementById('v-newlkp-owner')?.value || '';
+  const version = document.getElementById('v-newlkp-version')?.value || 'v1.0.0';
+  const standard = document.getElementById('v-newlkp-standard')?.value || '';
+  const stdver = document.getElementById('v-newlkp-stdver')?.value || '';
+  const def = document.getElementById('v-newlkp-default')?.value || '';
+  const cs = document.getElementById('v-newlkp-case')?.checked || false;
+  document.getElementById('v-newlkp-drawer').innerHTML = v_newLkpHtml();
+  if (document.getElementById('v-newlkp-name')) document.getElementById('v-newlkp-name').value = name;
+  if (document.getElementById('v-newlkp-desc')) document.getElementById('v-newlkp-desc').value = desc;
+  if (document.getElementById('v-newlkp-owner') && owner) document.getElementById('v-newlkp-owner').value = owner;
+  if (document.getElementById('v-newlkp-version')) document.getElementById('v-newlkp-version').value = version;
+  if (document.getElementById('v-newlkp-standard') && standard) document.getElementById('v-newlkp-standard').value = standard;
+  if (document.getElementById('v-newlkp-stdver')) document.getElementById('v-newlkp-stdver').value = stdver;
+  if (document.getElementById('v-newlkp-default')) document.getElementById('v-newlkp-default').value = def;
+  if (document.getElementById('v-newlkp-case')) document.getElementById('v-newlkp-case').checked = cs;
+  if (name) v_newLkpValidateName();
+}
+
+function v_newLkpHandleTagKey(ev) {
+  const input = ev.target;
+  if (ev.key === 'Enter' || ev.key === ',') {
+    ev.preventDefault();
+    const t = input.value.trim().replace(/,$/, '').trim();
+    if (t && !v_newLkpState.tags.includes(t)) {
+      v_newLkpState.tags.push(t);
+      v_newLkpRefreshDrawer();
+      setTimeout(() => document.getElementById('v-newlkp-tag-input')?.focus(), 30);
+    }
+    input.value = '';
+  } else if (ev.key === 'Backspace' && input.value === '' && v_newLkpState.tags.length > 0) {
+    v_newLkpState.tags.pop();
+    v_newLkpRefreshDrawer();
+    setTimeout(() => document.getElementById('v-newlkp-tag-input')?.focus(), 30);
+  }
+}
+
+function v_newLkpRemoveTag(idx) {
+  v_newLkpState.tags.splice(idx, 1);
+  v_newLkpRefreshDrawer();
+}
+
+function v_newLkpValidateName() {
+  const input = document.getElementById('v-newlkp-name');
+  const hint = document.getElementById('v-newlkp-name-hint');
+  if (!input || !hint) return;
+  const v = input.value.trim();
+  if (!v) {
+    hint.className = 'v-newlkp-hint';
+    hint.innerHTML = 'Used in expressions like <code style="background:var(--bg-subtle);padding:1px 4px;border-radius:3px;font-family:var(--font-mono, monospace);font-size:11px">GetMappingValue(&#39;LookupName&#39;,&hellip;)</code> &middot; must be unique &middot; letters, numbers, underscores only.';
+    return;
+  }
+  if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(v)) {
+    hint.className = 'v-newlkp-hint error';
+    hint.innerHTML = '&#9888; Use letters, numbers, and underscores only. Cannot start with a number or contain spaces.';
+    return;
+  }
+  // Check uniqueness against v_LOOKUPS_FULL and v_LOOKUPS
+  const existsFull = (typeof v_LOOKUPS_FULL !== 'undefined') && v_LOOKUPS_FULL.some(x => x.name.toLowerCase() === v.toLowerCase());
+  const existsSimple = (typeof v_LOOKUPS !== 'undefined') && v_LOOKUPS.some(x => x.n.toLowerCase() === v.toLowerCase());
+  if (existsFull || existsSimple) {
+    hint.className = 'v-newlkp-hint error';
+    hint.innerHTML = '&#9888; A lookup named &quot;' + v_esc(v) + '&quot; already exists. Pick a different name.';
+    return;
+  }
+  hint.className = 'v-newlkp-hint success';
+  hint.innerHTML = '&#10003; Looks good. Name is unique.';
+}
+
+function v_newLkpSave() {
+  const name = document.getElementById('v-newlkp-name')?.value.trim() || '';
+  const desc = document.getElementById('v-newlkp-desc')?.value.trim() || '';
+  const owner = document.getElementById('v-newlkp-owner')?.value || 'Clinical Informatics';
+  const version = document.getElementById('v-newlkp-version')?.value.trim() || 'v1.0.0';
+  const standard = document.getElementById('v-newlkp-standard')?.value || '';
+  const stdver = document.getElementById('v-newlkp-stdver')?.value.trim() || '';
+  const def = document.getElementById('v-newlkp-default')?.value.trim() || '';
+  const cs = document.getElementById('v-newlkp-case')?.checked || false;
+  // Validation
+  if (!name) {
+    v_lkpToast('Name is required'); document.getElementById('v-newlkp-name')?.focus(); return;
+  }
+  if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) {
+    v_lkpToast('Name must use letters, numbers, underscores only'); document.getElementById('v-newlkp-name')?.focus(); return;
+  }
+  const existsFull = (typeof v_LOOKUPS_FULL !== 'undefined') && v_LOOKUPS_FULL.some(x => x.name.toLowerCase() === name.toLowerCase());
+  const existsSimple = (typeof v_LOOKUPS !== 'undefined') && v_LOOKUPS.some(x => x.n.toLowerCase() === name.toLowerCase());
+  if (existsFull || existsSimple) {
+    v_lkpToast('A lookup with this name already exists'); document.getElementById('v-newlkp-name')?.focus(); return;
+  }
+  if (v_newLkpState.missBehavior === 'default' && !def) {
+    v_lkpToast('Default value is required when behavior is &quot;Use a default value&quot;'); document.getElementById('v-newlkp-default')?.focus(); return;
+  }
+  // Construct new lookup record
+  const newId = 'LKP-' + name.toUpperCase().replace(/[^A-Z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '').substring(0, 24);
+  const newRecord = {
+    id: newId,
+    name: name,
+    desc: desc || '(no description)',
+    standard: standard || null,
+    standardVersion: stdver || null,
+    standardLink: null,
+    rowCount: 0,
+    refreshed: 'just now',
+    refreshedBy: 'Vivek Kumar',
+    refreshedDays: 0,
+    sharedBy: 0,
+    owner: owner,
+    status: 'draft',
+    tenantScope: v_newLkpState.tenantScope,
+    version: version,
+    coverage: 0,
+    missBehavior: v_newLkpState.missBehavior,
+    defaultValue: v_newLkpState.missBehavior === 'default' ? def : null,
+    caseSensitive: cs,
+    tags: v_newLkpState.tags.slice(),
+    sampleRows: [],
+    usedBy: [],
+    history: [
+      { ver: version, date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }), author: 'Vivek Kumar', change: 'Lookup created' }
+    ]
+  };
+  // Append to in-memory lists (both shapes for compatibility)
+  if (typeof v_LOOKUPS_FULL !== 'undefined') v_LOOKUPS_FULL.unshift(newRecord);
+  if (typeof v_LOOKUPS !== 'undefined') v_LOOKUPS.unshift({ n: name, r: '0 rows', refr: 'just now', sh: 0 });
+  // Close drawer and re-render
+  v_closeNewLookup();
+  if (typeof v_renderLookups === 'function') v_renderLookups();
+  v_lkpToast('Lookup &quot;' + name + '&quot; created &middot; add rows or refresh from standard next');
+  // Brief highlight scroll
+  setTimeout(() => {
+    const rows = document.querySelectorAll('#v_pane-lookups tbody tr');
+    rows.forEach(r => {
+      if (r.textContent.includes(name)) {
+        r.style.background = 'var(--success-soft)';
+        r.style.transition = 'background 1.4s ease';
+        setTimeout(() => { r.style.background = ''; }, 100);
+        r.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }, 150);
+}
+// === END NEW LOOKUP drawer ===
+
+// === REFRESH FROM STANDARD modal ===
+let v_rfsState = { step: 'picker', selectedId: null, diff: null, filter: 'all', applyOption: 'auto-on-pass' };
+
+// Pre-canned diff data per standard — represents what a real fetch would return
+const v_RFS_DIFFS = {
+  'LOINC': {
+    fromVersion: 'v2.78',
+    toVersion: 'v2.79',
+    publishedDate: 'June 2026',
+    publisher: 'Regenstrief Institute',
+    sourceUrl: 'https://loinc.org/downloads/',
+    fetchTimeMs: 2400,
+    summary: { added: 142, changed: 18, removed: 6, unchanged: 14616 },
+    samples: {
+      added: [
+        { key: '105108-1', value: 'GLP1_AGON', desc: 'GLP-1 agonist therapeutic level' },
+        { key: '104866-5', value: 'SARS_VAR', desc: 'SARS-CoV-2 variant identification' },
+        { key: '104719-6', value: 'AGE_GAP', desc: 'Estimated biological age gap' },
+        { key: '104655-2', value: 'PSMA_PET', desc: 'PSMA PET imaging interpretation' },
+        { key: '105046-3', value: 'NIPT_RHD', desc: 'Fetal RhD status from maternal blood' }
+      ],
+      changed: [
+        { key: '2345-7', oldDesc: 'Glucose [Mass/volume] in serum', newDesc: 'Glucose [Mass/volume] in serum or plasma', oldValue: 'GLU', newValue: 'GLU' },
+        { key: '6690-2', oldDesc: 'Leukocytes [#/volume] in Blood', newDesc: 'Leukocytes [#/volume] in Blood by automated count', oldValue: 'WBC', newValue: 'WBC' },
+        { key: '777-3', oldDesc: 'Platelets [#/volume] in Blood', newDesc: 'Platelets [#/volume] in Blood by automated count', oldValue: 'PLT', newValue: 'PLT' }
+      ],
+      removed: [
+        { key: '11572-5', value: 'INR_OLD', desc: 'Deprecated INR code (use 6301-6 instead)' },
+        { key: '20570-8', value: 'HCT_OLD', desc: 'Deprecated hematocrit code' }
+      ]
+    }
+  },
+  'ICD-10-CM': {
+    fromVersion: '2026',
+    toVersion: '2027',
+    publishedDate: 'October 1, 2026',
+    publisher: 'CMS',
+    sourceUrl: 'https://www.cms.gov/medicare/icd-10/2027-icd-10-cm',
+    fetchTimeMs: 3100,
+    summary: { added: 487, changed: 124, removed: 91, unchanged: 91716 },
+    samples: {
+      added: [
+        { key: 'F32.A', value: 'F32A', desc: 'Depression, unspecified (new code, replaces deprecated F32.9 in some uses)' },
+        { key: 'Z87.892', value: 'Z87892', desc: 'Personal history of long COVID' },
+        { key: 'T88.53', value: 'T8853', desc: 'Failed sedation during procedure' }
+      ],
+      changed: [
+        { key: 'I10', oldDesc: 'Essential (primary) hypertension', newDesc: 'Essential (primary) hypertension, no specified stage', oldValue: 'I10', newValue: 'I10' },
+        { key: 'E11.9', oldDesc: 'Type 2 diabetes mellitus without complications', newDesc: 'Type 2 diabetes mellitus, uncomplicated', oldValue: 'E119', newValue: 'E119' }
+      ],
+      removed: [
+        { key: 'R51', value: 'R51', desc: 'Headache (split into R51.0 and R51.9)' }
+      ]
+    }
+  },
+  'HL7 Table 0001': {
+    fromVersion: 'v2.5',
+    toVersion: 'v2.9',
+    publishedDate: 'November 2025',
+    publisher: 'HL7 International',
+    sourceUrl: 'https://terminology.hl7.org/CodeSystem-v2-0001.html',
+    fetchTimeMs: 1200,
+    summary: { added: 1, changed: 0, removed: 0, unchanged: 5 },
+    samples: {
+      added: [{ key: 'X', value: 'unknown', desc: 'Unknown — added to align with FHIR administrative-gender' }],
+      changed: [],
+      removed: []
+    }
+  },
+  'UCUM': {
+    fromVersion: '2.1.1',
+    toVersion: '2.2',
+    publishedDate: 'March 2026',
+    publisher: 'Regenstrief Institute',
+    sourceUrl: 'https://ucum.org/',
+    fetchTimeMs: 800,
+    summary: { added: 8, changed: 2, removed: 0, unchanged: 374 },
+    samples: {
+      added: [
+        { key: 'attoL', value: 'aL', desc: 'Attoliter — added for single-cell volumetric assays' },
+        { key: 'amol/L', value: 'amol_L', desc: 'Attomoles per liter' }
+      ],
+      changed: [
+        { key: 'ng/mL', oldDesc: 'nanograms per milliliter', newDesc: 'nanograms per milliliter (mass concentration)', oldValue: 'ng_mL', newValue: 'ng_mL' }
+      ],
+      removed: []
+    }
+  },
+  'USPS': {
+    fromVersion: 'Pub 28',
+    toVersion: 'Pub 28 (current)',
+    publishedDate: 'No new release available',
+    publisher: 'USPS',
+    sourceUrl: 'https://about.usps.com/postal-bulletin/',
+    fetchTimeMs: 600,
+    summary: { added: 0, changed: 0, removed: 0, unchanged: 56 },
+    samples: { added: [], changed: [], removed: [] }
+  }
+};
+
+function v_openRefreshStd(preselectId) {
+  v_rfsState = { step: 'picker', selectedId: preselectId || null, diff: null, filter: 'all', applyOption: 'auto-on-pass' };
+  let overlay = document.getElementById('v-rfs-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'v-rfs-overlay';
+    overlay.className = 'v-rfs-overlay';
+    overlay.onclick = (e) => { if (e.target === overlay) v_closeRefreshStd(); };
+    document.body.appendChild(overlay);
+    const modal = document.createElement('div');
+    modal.id = 'v-rfs-modal';
+    modal.className = 'v-rfs-modal';
+    overlay.appendChild(modal);
+  }
+  v_rfsRender();
+  setTimeout(() => {
+    document.getElementById('v-rfs-overlay').classList.add('open');
+  }, 10);
+  // If preselected, auto-advance to fetch step
+  if (preselectId) {
+    setTimeout(() => v_rfsStartFetch(preselectId), 200);
+  }
+}
+
+function v_closeRefreshStd() {
+  const overlay = document.getElementById('v-rfs-overlay');
+  if (overlay) overlay.classList.remove('open');
+}
+
+function v_rfsRender() {
+  const modal = document.getElementById('v-rfs-modal');
+  if (!modal) return;
+  if (v_rfsState.step === 'picker') {
+    modal.innerHTML = v_rfsPickerHtml();
+  } else if (v_rfsState.step === 'fetching') {
+    modal.innerHTML = v_rfsFetchingHtml();
+  } else if (v_rfsState.step === 'diff') {
+    modal.innerHTML = v_rfsDiffHtml();
+  } else if (v_rfsState.step === 'applied') {
+    modal.innerHTML = v_rfsAppliedHtml();
+  }
+}
+
+function v_rfsPickerHtml() {
+  // Build the picker list from v_LOOKUPS_FULL
+  const lookups = (typeof v_LOOKUPS_FULL !== 'undefined') ? v_LOOKUPS_FULL : [];
+  const rows = lookups.map(l => {
+    const isBound = !!l.standard;
+    const stale = (l.refreshedDays || 0) > 90;
+    const standardLabel = l.standard || 'Custom';
+    const standardKey = (l.standard || '').replace(/-CM$/, '').toUpperCase().includes('LOINC') ? 'LOINC'
+                       : (l.standard || '').includes('ICD') ? 'ICD-10-CM'
+                       : (l.standard || '').includes('HL7') ? 'HL7 Table 0001'
+                       : (l.standard || '').includes('UCUM') ? 'UCUM'
+                       : (l.standard || '').includes('USPS') ? 'USPS'
+                       : null;
+    const hasDiff = standardKey && v_RFS_DIFFS[standardKey];
+    const disabled = !isBound || !hasDiff;
+    return `<div class="v-rfs-picker-row ${disabled ? 'disabled' : ''}" ${disabled ? `title="${isBound ? 'No update available for this standard yet' : 'Custom lookup &mdash; use Import CSV instead'}"` : `onclick="v_rfsStartFetch(&#39;${l.id}&#39;)"`}>
+      <div class="v-rfs-picker-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+      <div>
+        <div class="v-rfs-picker-name">${v_esc(l.name)} <span class="v-rfs-picker-pill ${isBound ? 'bound' : ''}">${v_esc(standardLabel)}${l.standardVersion ? ' &middot; ' + v_esc(l.standardVersion) : ''}</span>${stale ? '<span class="v-rfs-picker-pill stale">Stale</span>' : ''}</div>
+        <div class="v-rfs-picker-meta">${v_esc(l.desc)}</div>
+      </div>
+      <div class="v-rfs-picker-rows">${l.rowCount.toLocaleString()} rows</div>
+      <div class="v-rfs-picker-refr">${v_esc(l.refreshed || '')}</div>
+    </div>`;
+  }).join('');
+  const eligibleCount = lookups.filter(l => {
+    if (!l.standard) return false;
+    const key = (l.standard || '').includes('LOINC') ? 'LOINC' : (l.standard || '').includes('ICD') ? 'ICD-10-CM' : (l.standard || '').includes('HL7') ? 'HL7 Table 0001' : (l.standard || '').includes('UCUM') ? 'UCUM' : (l.standard || '').includes('USPS') ? 'USPS' : null;
+    return key && v_RFS_DIFFS[key];
+  }).length;
+  return `
+    <div class="v-rfs-head">
+      <div class="v-rfs-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Refresh from standard</div>
+      <button class="v-rfs-close" onclick="v_closeRefreshStd()" title="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="v-rfs-body">
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:14px;line-height:1.55">
+        Pick a lookup that&#39;s bound to a published standard. We&#39;ll fetch the latest release, show you what changed, and you decide what to apply.
+        <strong style="color:var(--text)">Custom lookups</strong> aren&#39;t eligible &mdash; use <em>Import CSV</em> for those.
+      </div>
+      <div class="v-rfs-picker-grid">${rows}</div>
+    </div>
+    <div class="v-rfs-foot">
+      <div class="v-rfs-foot-left"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>${eligibleCount} eligible &middot; ${lookups.length - eligibleCount} skipped</div>
+      <div class="v-rfs-foot-right">
+        <button class="btn btn-ghost btn-sm" onclick="v_closeRefreshStd()">Cancel</button>
+      </div>
+    </div>
+  `;
+}
+
+function v_rfsStartFetch(lookupId) {
+  v_rfsState.selectedId = lookupId;
+  v_rfsState.step = 'fetching';
+  v_rfsRender();
+  // Find the lookup, look up its standard, simulate fetch
+  const lookup = (v_LOOKUPS_FULL || []).find(x => x.id === lookupId);
+  if (!lookup) { v_rfsState.step = 'picker'; v_rfsRender(); return; }
+  const standardKey = (lookup.standard || '').includes('LOINC') ? 'LOINC'
+                     : (lookup.standard || '').includes('ICD') ? 'ICD-10-CM'
+                     : (lookup.standard || '').includes('HL7') ? 'HL7 Table 0001'
+                     : (lookup.standard || '').includes('UCUM') ? 'UCUM'
+                     : (lookup.standard || '').includes('USPS') ? 'USPS'
+                     : null;
+  const diff = standardKey && v_RFS_DIFFS[standardKey];
+  if (!diff) {
+    setTimeout(() => {
+      v_rfsState.step = 'picker';
+      v_rfsRender();
+      v_lkpToast('No update available for this standard yet');
+    }, 800);
+    return;
+  }
+  // Simulate the network fetch
+  setTimeout(() => {
+    v_rfsState.diff = { ...diff, lookup: lookup, standardKey: standardKey };
+    v_rfsState.step = 'diff';
+    v_rfsState.filter = 'all';
+    v_rfsRender();
+  }, Math.min(diff.fetchTimeMs, 1500));
+}
+
+function v_rfsFetchingHtml() {
+  const lookup = (v_LOOKUPS_FULL || []).find(x => x.id === v_rfsState.selectedId);
+  return `
+    <div class="v-rfs-head">
+      <div class="v-rfs-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Fetching latest ${v_esc(lookup ? lookup.standard : 'standard')}&hellip;</div>
+    </div>
+    <div class="v-rfs-body">
+      <div class="v-rfs-loading">
+        <div class="v-rfs-spinner"></div>
+        <div class="v-rfs-loading-text">Pulling latest ${v_esc(lookup ? lookup.standard : '')} release</div>
+        <div class="v-rfs-loading-sub">Comparing against ${v_esc(lookup ? lookup.version : '')} &middot; this usually takes a couple of seconds</div>
+      </div>
+    </div>
+  `;
+}
+
+function v_rfsDiffHtml() {
+  const d = v_rfsState.diff;
+  if (!d) return '';
+  const totalChanges = d.summary.added + d.summary.changed + d.summary.removed;
+  const filter = v_rfsState.filter;
+  // Build sample row table
+  let sampleRows = [];
+  if (filter === 'all' || filter === 'added') {
+    d.samples.added.forEach(r => sampleRows.push({ kind: 'added', ...r }));
+  }
+  if (filter === 'all' || filter === 'changed') {
+    d.samples.changed.forEach(r => sampleRows.push({ kind: 'changed', ...r }));
+  }
+  if (filter === 'all' || filter === 'removed') {
+    d.samples.removed.forEach(r => sampleRows.push({ kind: 'removed', ...r }));
+  }
+  const tableBody = sampleRows.length === 0
+    ? `<tr><td colspan="3"><div class="v-rfs-diff-empty">No ${filter === 'all' ? 'changes' : filter} rows in the sample. Total ${filter === 'all' ? totalChanges : d.summary[filter]} ${filter === 'all' ? 'changes' : filter} across the full standard.</div></td></tr>`
+    : sampleRows.map(r => {
+      if (r.kind === 'added') {
+        return `<tr class="v-rfs-diff-row added">
+          <td><span class="v-rfs-diff-key">${v_esc(r.key)}</span></td>
+          <td class="v-rfs-diff-new">${v_esc(r.value)}</td>
+          <td>${v_esc(r.desc)}</td>
+        </tr>`;
+      } else if (r.kind === 'changed') {
+        return `<tr class="v-rfs-diff-row changed">
+          <td><span class="v-rfs-diff-key">${v_esc(r.key)}</span></td>
+          <td>${r.oldValue !== r.newValue ? `<span class="v-rfs-diff-old">${v_esc(r.oldValue)}</span> <span class="v-rfs-diff-arrow">&rarr;</span> <span class="v-rfs-diff-new">${v_esc(r.newValue)}</span>` : `<span class="v-rfs-diff-new">${v_esc(r.newValue)}</span>`}</td>
+          <td><span class="v-rfs-diff-old">${v_esc(r.oldDesc)}</span><br><span class="v-rfs-diff-new">${v_esc(r.newDesc)}</span></td>
+        </tr>`;
+      } else {
+        return `<tr class="v-rfs-diff-row removed">
+          <td><span class="v-rfs-diff-key">${v_esc(r.key)}</span></td>
+          <td>${v_esc(r.value)}</td>
+          <td>${v_esc(r.desc)}</td>
+        </tr>`;
+      }
+    }).join('');
+
+  const sampleSize = d.samples.added.length + d.samples.changed.length + d.samples.removed.length;
+
+  return `
+    <div class="v-rfs-head">
+      <div class="v-rfs-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>Review ${v_esc(d.lookup.standard)} update</div>
+      <button class="v-rfs-close" onclick="v_closeRefreshStd()" title="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="v-rfs-body">
+
+      <div class="v-rfs-source-card">
+        <div class="v-rfs-source-side">
+          <div class="v-rfs-source-label">Current</div>
+          <div class="v-rfs-source-name">${v_esc(d.lookup.name)}</div>
+          <div class="v-rfs-source-meta">${v_esc(d.lookup.standard)} ${v_esc(d.fromVersion)} &middot; ${d.lookup.rowCount.toLocaleString()} rows &middot; refreshed ${v_esc(d.lookup.refreshed)}</div>
+        </div>
+        <div class="v-rfs-source-side">
+          <div class="v-rfs-source-label">Available update</div>
+          <div class="v-rfs-source-name">${v_esc(d.lookup.standard)} ${v_esc(d.toVersion)}</div>
+          <div class="v-rfs-source-meta">Published ${v_esc(d.publishedDate)} &middot; ${v_esc(d.publisher)} &middot; <a style="color:var(--accent);text-decoration:none" href="${v_esc(d.sourceUrl)}" target="_blank" rel="noopener">source &rarr;</a></div>
+        </div>
+      </div>
+
+      <div class="v-rfs-summary">
+        <div class="v-rfs-summary-tile ${filter==='all'?'active':''}" onclick="v_rfsSetFilter('all')">
+          <div class="v-rfs-summary-tile-label" style="color:var(--accent)">Total changes</div>
+          <div class="v-rfs-summary-tile-count">${totalChanges.toLocaleString()}</div>
+          <div class="v-rfs-summary-tile-sub">across ${(d.summary.unchanged + totalChanges).toLocaleString()} rows</div>
+        </div>
+        <div class="v-rfs-summary-tile added ${filter==='added'?'active':''}" onclick="v_rfsSetFilter('added')">
+          <div class="v-rfs-summary-tile-label">+ Added</div>
+          <div class="v-rfs-summary-tile-count" style="color:var(--success)">${d.summary.added.toLocaleString()}</div>
+          <div class="v-rfs-summary-tile-sub">new codes</div>
+        </div>
+        <div class="v-rfs-summary-tile changed ${filter==='changed'?'active':''}" onclick="v_rfsSetFilter('changed')">
+          <div class="v-rfs-summary-tile-label">~ Changed</div>
+          <div class="v-rfs-summary-tile-count" style="color:var(--warning, #B47B22)">${d.summary.changed.toLocaleString()}</div>
+          <div class="v-rfs-summary-tile-sub">descriptions / values</div>
+        </div>
+        <div class="v-rfs-summary-tile removed ${filter==='removed'?'active':''}" onclick="v_rfsSetFilter('removed')">
+          <div class="v-rfs-summary-tile-label">&minus; Removed</div>
+          <div class="v-rfs-summary-tile-count" style="color:var(--danger)">${d.summary.removed.toLocaleString()}</div>
+          <div class="v-rfs-summary-tile-sub">deprecated</div>
+        </div>
+      </div>
+
+      ${totalChanges === 0 ? `<div class="v-rfs-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><div>Already up to date. ${v_esc(d.lookup.standard)} ${v_esc(d.toVersion)} matches what you have. No action needed.</div></div>` : `
+      <div style="font-size:11px;color:var(--text-tertiary);margin-bottom:6px">Sample of ${sampleSize} representative rows from the ${totalChanges.toLocaleString()} total changes &middot; click a tile above to filter</div>
+      <div class="v-rfs-diff-table-wrap">
+        <table class="v-rfs-diff-table">
+          <thead><tr><th style="width:140px">Key</th><th style="width:160px">Internal value</th><th>Description</th></tr></thead>
+          <tbody>${tableBody}</tbody>
+        </table>
+      </div>
+
+      <div class="v-rfs-options">
+        <div class="v-rfs-options-title">Apply options</div>
+        <label class="v-rfs-options-row">
+          <input type="radio" name="rfs-apply" value="auto-on-pass" ${v_rfsState.applyOption==='auto-on-pass'?'checked':''} onchange="v_rfsState.applyOption='auto-on-pass'"/>
+          <div class="v-rfs-options-row-text">
+            Apply if Sandbox replay passes &middot; <strong>recommended</strong>
+            <div class="v-rfs-options-row-sub">Replays the last 24 hours of messages against the new lookup. Auto-promotes if all tests still pass. Enters approval workflow otherwise.</div>
+          </div>
+        </label>
+        <label class="v-rfs-options-row">
+          <input type="radio" name="rfs-apply" value="draft" ${v_rfsState.applyOption==='draft'?'checked':''} onchange="v_rfsState.applyOption='draft'"/>
+          <div class="v-rfs-options-row-text">
+            Save as draft only
+            <div class="v-rfs-options-row-sub">Don&#39;t replay or promote. You&#39;ll review and submit for approval manually.</div>
+          </div>
+        </label>
+        <label class="v-rfs-options-row">
+          <input type="radio" name="rfs-apply" value="dryrun" ${v_rfsState.applyOption==='dryrun'?'checked':''} onchange="v_rfsState.applyOption='dryrun'"/>
+          <div class="v-rfs-options-row-text">
+            Dry run only
+            <div class="v-rfs-options-row-sub">Replay against the message buffer to see impact, but don&#39;t change the lookup. Use for impact analysis before committing.</div>
+          </div>
+        </label>
+      </div>
+      `}
+
+      <div class="v-rfs-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <div><strong>What happens after Apply:</strong> the lookup version bumps to ${v_esc(d.lookup.standard)} ${v_esc(d.toVersion)}, an audit log entry is written, and every interface using this lookup re-evaluates its sample messages. Drift Radar baseline is updated so this refresh doesn&#39;t trigger false alerts.</div>
+      </div>
+
+    </div>
+    <div class="v-rfs-foot">
+      <div class="v-rfs-foot-left">${d.lookup.sharedBy ? `Used by <strong style="color:var(--text)">${d.lookup.sharedBy}</strong> mappings` : 'Not yet used in any mapping'} &middot; <a style="color:var(--accent);cursor:pointer" onclick="v_lkpToast('Open Used by tab')">view list</a></div>
+      <div class="v-rfs-foot-right">
+        <button class="btn btn-ghost btn-sm" onclick="v_rfsState.step='picker';v_rfsRender()"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>Back</button>
+        ${totalChanges === 0
+          ? `<button class="btn btn-primary btn-sm" onclick="v_closeRefreshStd()">Close</button>`
+          : `<button class="btn btn-primary btn-sm" onclick="v_rfsApply()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Apply &middot; ${v_rfsState.applyOption==='dryrun'?'dry run':v_rfsState.applyOption==='draft'?'save as draft':'replay & apply'}</button>`}
+      </div>
+    </div>
+  `;
+}
+
+function v_rfsSetFilter(filter) {
+  v_rfsState.filter = filter;
+  v_rfsRender();
+}
+
+function v_rfsApply() {
+  const d = v_rfsState.diff;
+  if (!d) return;
+  const opt = v_rfsState.applyOption;
+  // Update the in-memory lookup record
+  if (opt !== 'dryrun') {
+    const lookup = (v_LOOKUPS_FULL || []).find(x => x.id === d.lookup.id);
+    if (lookup) {
+      lookup.version = d.toVersion;
+      lookup.standardVersion = d.toVersion;
+      lookup.rowCount = lookup.rowCount + d.summary.added - d.summary.removed;
+      lookup.refreshed = 'just now';
+      lookup.refreshedBy = 'Vivek Kumar';
+      lookup.refreshedDays = 0;
+      if (opt === 'draft') lookup.status = 'draft';
+      lookup.history = lookup.history || [];
+      lookup.history.unshift({
+        ver: d.toVersion,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        author: 'Vivek Kumar',
+        change: `Refreshed from ${d.lookup.standard} ${d.toVersion} (+${d.summary.added}, ~${d.summary.changed}, -${d.summary.removed})`
+      });
+    }
+    // Also update the lightweight v_LOOKUPS list used by mapping detail
+    if (typeof v_LOOKUPS !== 'undefined') {
+      const simple = v_LOOKUPS.find(x => x.n === d.lookup.name);
+      if (simple) {
+        simple.r = (d.lookup.rowCount + d.summary.added - d.summary.removed).toLocaleString() + ' rows';
+        simple.refr = 'just now';
+      }
+    }
+  }
+  v_rfsState.step = 'applied';
+  v_rfsState.appliedSummary = { added: d.summary.added, changed: d.summary.changed, removed: d.summary.removed, dryRun: opt === 'dryrun', draft: opt === 'draft', toVersion: d.toVersion, name: d.lookup.name, standard: d.lookup.standard };
+  v_rfsRender();
+}
+
+function v_rfsAppliedHtml() {
+  const a = v_rfsState.appliedSummary || {};
+  const total = (a.added || 0) + (a.changed || 0) + (a.removed || 0);
+  return `
+    <div class="v-rfs-head">
+      <div class="v-rfs-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--success)"><polyline points="20 6 9 17 4 12"/></svg>${a.dryRun ? 'Dry run complete' : a.draft ? 'Saved as draft' : 'Refresh applied'}</div>
+      <button class="v-rfs-close" onclick="v_closeRefreshStd()" title="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="v-rfs-body">
+      <div style="text-align:center;padding:30px 20px">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--success-soft);display:inline-grid;place-items:center;margin-bottom:14px"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px">${v_esc(a.name)} &middot; ${v_esc(a.standard)} ${v_esc(a.toVersion)}</div>
+        <div style="font-size:12.5px;color:var(--text-secondary);max-width:520px;margin:0 auto;line-height:1.55">
+          ${a.dryRun
+            ? `Replay finished. <strong style="color:var(--text)">No changes were saved.</strong> ${total.toLocaleString()} potential changes (${a.added} added, ${a.changed} changed, ${a.removed} removed) replayed against the last 24 hours of production messages with no test failures. The lookup is unchanged.`
+            : a.draft
+            ? `<strong style="color:var(--text)">${total.toLocaleString()} changes</strong> staged as a draft (+${a.added}, ~${a.changed}, &minus;${a.removed}). Submit for approval from the lookup detail page when ready.`
+            : `<strong style="color:var(--text)">${total.toLocaleString()} changes</strong> applied (+${a.added}, ~${a.changed}, &minus;${a.removed}). Sandbox replay passed &middot; all 12 tests still passing. Audit log entry written. Drift Radar baseline updated.`}
+        </div>
+      </div>
+    </div>
+    <div class="v-rfs-foot">
+      <div class="v-rfs-foot-left">${a.dryRun ? '' : 'Applied by Vivek Kumar &middot; just now'}</div>
+      <div class="v-rfs-foot-right">
+        <button class="btn btn-secondary btn-sm" onclick="v_rfsState.step='picker';v_rfsState.selectedId=null;v_rfsRender()">Refresh another</button>
+        <button class="btn btn-primary btn-sm" onclick="v_closeRefreshStd();if(typeof v_renderLookups==='function')v_renderLookups()">Done</button>
+      </div>
+    </div>
+  `;
+}
+// === END REFRESH FROM STANDARD modal ===
+
+
+
+
 function m_renderActiveTab() {
   switch (m_activeTab) {
     case 'overview':   m_renderOverview(); break;
@@ -15312,6 +16565,7 @@ function m_renderVariables() {
           <button onclick="m_setVarView('graph')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 6h8M8 18h8M6 8v8M18 8v8"/></svg>Graph</button>
           <button onclick="m_setVarView('matrix')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Matrix</button>
         </div>
+        <button class="btn btn-primary btn-sm" onclick="m_openAddVar()" style="margin-left:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add variable</button>
       </div>
       <div class="m-var-shell">
         <div class="m-var-list-shell">
@@ -15360,6 +16614,7 @@ function m_renderVariables() {
           <button onclick="m_setVarView('graph')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 6h8M8 18h8M6 8v8M18 8v8"/></svg>Graph</button>
           <button class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Matrix</button>
         </div>
+        <button class="btn btn-primary btn-sm" onclick="m_openAddVar()" style="margin-left:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add variable</button>
       </div>
       <div class="card" style="padding:14px 18px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px">
@@ -15389,6 +16644,7 @@ function m_renderVariables() {
           <button class="active">Graph</button>
           <button onclick="m_setVarView('matrix')">Matrix</button>
         </div>
+        <button class="btn btn-primary btn-sm" onclick="m_openAddVar()" style="margin-left:8px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add variable</button>
       </div>
       <div class="m-var-graph-canvas">
         ${m_renderVarGraph()}
@@ -16304,7 +17560,7 @@ function v_openLookup(id) {
       </div>
       <div class="v-detail-head-actions">
         <button class="btn btn-secondary btn-sm" onclick="v_openImpact(&#39;${l.id}&#39;,&#39;lookup&#39;)">Impact</button>
-        <button class="btn btn-secondary btn-sm" onclick="v_lkpToast(&#39;Refresh from standard — coming soon&#39;)">${v_svg('check')}Refresh</button>
+        <button class="btn btn-secondary btn-sm" onclick="v_openRefreshStd(&#39;${l.id}&#39;)">${v_svg('check')}Refresh</button>
         <button class="btn btn-primary btn-sm" onclick="v_lkpToast(&#39;Edit lookup — coming soon&#39;)">Edit</button>
       </div>
     </div>
