@@ -4316,14 +4316,14 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 .retry-table th { font-size: 10.5px; text-transform: uppercase; color: var(--text-tertiary); letter-spacing: 0.05em; font-weight: 600; border-bottom: 1px solid var(--border); }
 .retry-table td { border-bottom: 1px solid var(--border-soft); }
 
-/* History (previous cases) */
-.hist-row { padding: 12px 14px; border-bottom: 1px solid var(--border-soft); display: grid; grid-template-columns: 110px 1fr 120px 90px auto; gap: 12px; align-items: center; }
-.hist-row:last-child { border-bottom: none; }
-.hist-row:hover { background: var(--bg-subtle); }
-.hist-row .acc { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--text); }
-.hist-row .desc { font-size: 12.5px; color: var(--text); }
-.hist-row .desc-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
-.hist-row .when { font-size: 11.5px; color: var(--text-secondary); }
+/* History (previous cases) — scoped to c360 history tab to avoid clash with Promote & Deploy .hist-row */
+#c360tab-history .hist-row { padding: 12px 14px; border-bottom: 1px solid var(--border-soft); display: grid; grid-template-columns: 110px 1fr 120px 90px auto; gap: 12px; align-items: center; }
+#c360tab-history .hist-row:last-child { border-bottom: none; }
+#c360tab-history .hist-row:hover { background: var(--bg-subtle); }
+#c360tab-history .hist-row .acc { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--text); }
+#c360tab-history .hist-row .desc { font-size: 12.5px; color: var(--text); }
+#c360tab-history .hist-row .desc-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+#c360tab-history .hist-row .when { font-size: 11.5px; color: var(--text-secondary); }
 
 /* Claims & attachments */
 .claim-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 14px 16px; margin-bottom: 12px; }
@@ -4549,6 +4549,17 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 .v-data-table tbody tr { transition:background var(--t-fast); cursor:pointer; }
 .v-data-table tbody tr:hover { background:var(--surface-soft); }
 .v-data-table tbody tr:last-child td { border-bottom:none; }
+/* Allow wide vendor-library tables to scroll horizontally inside their card
+   without breaking the card's border-radius clipping (vertical stays clipped). */
+.card:has(> table.v-data-table) { overflow-x: auto; overflow-y: hidden; }
+/* Tighter horizontal padding on the widest vendor-library tables (Mappings, Rule packs)
+   so all 9–10 columns fit without horizontal scroll at default viewport. */
+#v_pane-mappings .v-data-table th, #v_pane-mappings .v-data-table td,
+#v_pane-rules .v-data-table th,    #v_pane-rules .v-data-table td { padding-left: 10px; padding-right: 10px; }
+#v_pane-mappings .v-data-table th:first-child, #v_pane-mappings .v-data-table td:first-child,
+#v_pane-rules .v-data-table th:first-child,    #v_pane-rules .v-data-table td:first-child { padding-left: 14px; }
+#v_pane-mappings .v-data-table th:last-child, #v_pane-mappings .v-data-table td:last-child,
+#v_pane-rules .v-data-table th:last-child,    #v_pane-rules .v-data-table td:last-child { padding-right: 14px; }
 
 .v-filter-bar { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:12px 14px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
 .v-search-wrap { flex:1; min-width:240px; position:relative; }
@@ -4619,7 +4630,7 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 .v-fork-badge { display:inline-flex; align-items:center; gap:5px; padding:3px 9px 3px 7px; background:var(--purple-soft, #F1EAF7); color:var(--purple, #7C4BA5); border:1px solid rgba(124,75,165,0.18); border-radius:var(--r-full); font-size:11px; font-weight:500; cursor:pointer; }
 .v-fork-badge:hover { background:rgba(124,75,165,0.12); }
 .v-fork-badge svg { width:11px; height:11px; }
-.v-logic-preview { font-family:var(--font-mono); font-size:11px; color:var(--text-secondary); max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:inline-block; }
+.v-logic-preview { font-family:var(--font-mono); font-size:11px; color:var(--text-secondary); max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; display:inline-block; }
 
 /* === Detail screens === */
 .v-detail-head { background:var(--surface); border:1px solid var(--border); border-radius:var(--r-lg); padding:18px 22px; margin-bottom:16px; }
@@ -4633,6 +4644,10 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 .v-detail-head-tags { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-top:8px; }
 .v-detail-head-actions { display:flex; gap:8px; flex-shrink:0; align-items:center; flex-wrap:wrap; }
 .v-detail-subtabs { display:flex; gap:2px; border-bottom:1px solid var(--border); margin-bottom:16px; overflow-x:auto; padding:0 4px; }
+/* Tab strip + right-aligned action button on the same line (used for Rule pack detail "+ Add rule") */
+.v-detail-subtabs-row { display:flex; align-items:flex-end; justify-content:space-between; gap:14px; border-bottom:1px solid var(--border); margin-bottom:16px; padding:0 4px 0 4px; }
+.v-detail-subtabs-row .v-detail-subtabs { border-bottom:none; margin-bottom:0; padding:0; flex:1; min-width:0; }
+.v-detail-subtabs-row-action { flex-shrink:0; padding-bottom:6px; }
 .v-detail-subtab { padding:11px 14px; font-size:12.5px; font-weight:500; color:var(--text-tertiary); position:relative; transition:color var(--t-fast); white-space:nowrap; cursor:pointer; }
 .v-detail-subtab:hover { color:var(--text); }
 .v-detail-subtab.active { color:var(--accent); }
@@ -4708,6 +4723,45 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 .v-rule-item-field { font-family:var(--font-mono); font-size:11px; color:var(--text-secondary); }
 .v-rule-item-op { font-family:var(--font-mono); font-size:10.5px; padding:2px 7px; background:var(--accent-tint, var(--accent-soft)); color:var(--accent); border-radius:var(--r-sm); font-weight:600; }
 .v-rule-item-val { font-family:var(--font-mono); font-size:11px; color:var(--text); }
+/* Editable rule item — reveals edit/delete actions on hover */
+.v-rule-item-editable { grid-template-columns:1fr auto auto auto auto; transition:border-color var(--t-fast), background var(--t-fast); }
+.v-rule-item-editable:hover { border-color:var(--accent); background:var(--surface); }
+.v-rule-item-actions { display:flex; gap:4px; opacity:0; transition:opacity var(--t-fast); }
+.v-rule-item-editable:hover .v-rule-item-actions { opacity:1; }
+.v-rule-item-action { width:26px; height:26px; padding:0; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-sm); cursor:pointer; display:grid; place-items:center; color:var(--text-secondary); transition:all var(--t-fast); }
+.v-rule-item-action:hover { background:var(--bg-subtle); color:var(--accent); border-color:var(--accent); }
+.v-rule-item-action.danger:hover { color:var(--danger); border-color:var(--danger); background:var(--danger-soft); }
+.v-rule-item-action svg { width:13px; height:13px; }
+
+/* ====== ADD/EDIT RULE side drawer (rule pack detail) ====== */
+.v-rule-drawer-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.32); z-index:200; opacity:0; pointer-events:none; transition:opacity var(--t-fast); }
+.v-rule-drawer-overlay.open { opacity:1; pointer-events:auto; }
+.v-rule-drawer { position:fixed; top:0; right:0; bottom:0; width:480px; max-width:95vw; background:var(--surface); border-left:1px solid var(--border); box-shadow:-8px 0 24px rgba(0,0,0,0.10); z-index:201; transform:translateX(100%); transition:transform 0.22s cubic-bezier(0.4,0,0.2,1); display:flex; flex-direction:column; }
+.v-rule-drawer.open { transform:translateX(0); }
+.v-rule-drawer-head { padding:14px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+.v-rule-drawer-title { font-size:15px; font-weight:600; color:var(--text); display:flex; align-items:center; gap:8px; }
+.v-rule-drawer-title svg { width:16px; height:16px; color:var(--accent); }
+.v-rule-drawer-close { background:none; border:none; cursor:pointer; padding:6px; border-radius:var(--r-sm); color:var(--text-secondary); display:grid; place-items:center; }
+.v-rule-drawer-close:hover { background:var(--bg-subtle); }
+.v-rule-drawer-close svg { width:16px; height:16px; }
+.v-rule-drawer-body { flex:1; overflow-y:auto; padding:16px 18px 24px; }
+.v-rule-drawer-foot { padding:12px 18px; border-top:1px solid var(--border); display:flex; gap:8px; justify-content:space-between; align-items:center; flex-shrink:0; background:var(--surface-soft); }
+.v-rule-drawer-foot-left { display:flex; gap:8px; }
+.v-rule-drawer-foot-right { display:flex; gap:8px; }
+.v-rule-field { margin-bottom:14px; }
+.v-rule-field:last-child { margin-bottom:0; }
+.v-rule-label { display:block; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-secondary); margin-bottom:6px; }
+.v-rule-label .req { color:var(--danger); margin-left:3px; }
+.v-rule-input, .v-rule-select { width:100%; padding:8px 11px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-md); font-size:13px; font-family:inherit; color:var(--text); transition:border-color var(--t-fast); }
+.v-rule-input:focus, .v-rule-select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft); }
+.v-rule-input.mono { font-family:var(--font-mono); font-size:12px; }
+.v-rule-hint { font-size:11px; color:var(--text-tertiary); margin-top:4px; line-height:1.4; }
+.v-rule-toggle-row { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; background:var(--bg-subtle); border-radius:var(--r-md); border:1px solid var(--border-soft); }
+.v-rule-toggle-label { font-size:12.5px; color:var(--text); }
+.v-rule-toggle-sub { font-size:11px; color:var(--text-tertiary); margin-top:2px; }
+.v-rule-info { display:flex; gap:8px; padding:10px 12px; background:var(--accent-soft); border-radius:var(--r-md); font-size:11.5px; color:var(--text); line-height:1.5; margin-bottom:14px; }
+.v-rule-info svg { width:14px; height:14px; color:var(--accent); flex-shrink:0; margin-top:2px; }
+/* ====== END ADD/EDIT RULE drawer ====== */
 .v-expr-tree { background:var(--surface-soft); border:1px solid var(--border); border-radius:var(--r-md); padding:14px 16px; font-family:var(--font-mono); font-size:12px; line-height:1.7; white-space:pre-wrap; overflow-x:auto; }
 .v-sample-io { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .v-sample-pane { background:var(--surface-soft); border:1px solid var(--border); border-radius:var(--r-md); overflow:hidden; }
@@ -6098,7 +6152,7 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 
     <div class="sidebar-footer">
       <div class="user-avatar">VK</div>
-      <div class="user-info"><div class="user-name">Vivek Kumar</div><div class="user-role">Hub Admin</div></div>
+      <div class="user-info"><div class="user-name">Vivek K</div><div class="user-role">Hub Admin</div></div>
     </div>
   </aside>
 
@@ -9533,14 +9587,6 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
           </div>
         </div>
 
-        <div class="kpi-normal" style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px">
-          <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot neutral"></span>Events today</div><div class="hero-card-value">14,248</div><div class="hero-card-meta">avg 594/hr</div></div>
-          <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot warn"></span>Critical actions</div><div class="hero-card-value" style="color:var(--warning)">42</div><div class="hero-card-meta">approvals · promotions · roles</div></div>
-          <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot bad"></span>PHI reveals</div><div class="hero-card-value" style="color:var(--danger)">4</div><div class="hero-card-meta">all JIT · all tracked</div></div>
-          <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot warn"></span>Denied actions</div><div class="hero-card-value" style="color:var(--warning)">7</div><div class="hero-card-meta">permission failures</div></div>
-          <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot ok"></span>Chain integrity</div><div class="hero-card-value" style="color:var(--success)">100<span class="unit">%</span></div><div class="hero-card-meta">7-year retention active</div></div>
-        </div>
-
         <div class="card">
           <div class="panel-head" style="flex-direction:column;align-items:stretch;gap:12px;padding-bottom:12px">
             <div style="display:flex;justify-content:space-between;align-items:baseline">
@@ -9870,13 +9916,6 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 
         <!-- ============ BULK OPERATIONS TAB ============ -->
         <div class="subtab-pane" data-tab="bulk">
-          <div class="kpi-normal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px">
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot neutral"></span>Total interfaces</div><div class="hero-card-value">84</div><div class="hero-card-meta">across 4 environments</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot warn"></span>Selected</div><div class="hero-card-value" style="color:var(--warning)">5</div><div class="hero-card-meta">review impact before executing</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot neutral"></span>Recent bulk ops</div><div class="hero-card-value">12</div><div class="hero-card-meta">100% success · 2 rollbacks available</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot ok"></span>Rollback window</div><div class="hero-card-value" style="color:var(--success);font-size:22px;padding-top:10px">1 hour</div><div class="hero-card-meta">after any Production bulk action</div></div>
-          </div>
-
           <!-- Bulk action bar -->
           <div class="bulk-action-bar">
             <span class="bulk-sel-count">5 selected</span>
@@ -9972,13 +10011,6 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 
         <!-- ============ DEPENDENCY MAP TAB ============ -->
         <div class="subtab-pane" data-tab="deps">
-          <div class="kpi-normal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px">
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot neutral"></span>Shared assets</div><div class="hero-card-value">42</div><div class="hero-card-meta">processors · lookups · templates · agents</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot warn"></span>High-impact assets</div><div class="hero-card-value" style="color:var(--warning)">6</div><div class="hero-card-meta">used by 10+ interfaces each</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot neutral"></span>Connections tracked</div><div class="hero-card-value">284</div><div class="hero-card-meta">interface ↔ asset relationships</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot ok"></span>Orphan assets</div><div class="hero-card-value" style="color:var(--success)">2</div><div class="hero-card-meta">safe to archive</div></div>
-          </div>
-
           <div class="config-layout">
             <!-- Assets sidebar -->
             <aside class="config-scope-card">
@@ -10227,13 +10259,6 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 
         <!-- ============ JOBS TAB ============ -->
         <div class="subtab-pane" data-tab="jobs">
-          <div class="kpi-normal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px">
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot neutral"></span>Scheduled jobs</div><div class="hero-card-value">12</div><div class="hero-card-meta">11 active · 1 paused</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot ok"></span>Runs today</div><div class="hero-card-value" style="color:var(--success)">84</div><div class="hero-card-meta">100% success rate</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot neutral"></span>Next run</div><div class="hero-card-value" style="font-size:22px;padding-top:10px">18m 42s</div><div class="hero-card-meta">DLQ audit · hourly</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot neutral" style="background:var(--purple)"></span>Custom jobs</div><div class="hero-card-value" style="color:var(--purple)">3</div><div class="hero-card-meta">W700 reconciliation · 2 more</div></div>
-          </div>
-
           <div class="agents-layout">
             <!-- Jobs list -->
             <div class="card">
@@ -10348,13 +10373,6 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
 
         <!-- ============ CONFIGURATION KEYS TAB ============ -->
         <div class="subtab-pane" data-tab="keys">
-          <div class="kpi-normal" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px">
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot neutral"></span>Total keys</div><div class="hero-card-value">47</div><div class="hero-card-meta">across 4 environments</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot bad"></span>Secrets</div><div class="hero-card-value" style="color:var(--danger)">28</div><div class="hero-card-meta">encrypted · never logged</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot neutral"></span>Configuration</div><div class="hero-card-value">19</div><div class="hero-card-meta">non-secret env values</div></div>
-            <div class="hero-card"><div class="hero-card-label"><span class="kpi-dot warn"></span>Due for rotation</div><div class="hero-card-value" style="color:var(--warning)">3</div><div class="hero-card-meta">Quest API · Northwell cert · Slack</div></div>
-          </div>
-
           <div class="config-layout">
             <!-- Scope rail -->
             <aside class="config-scope-card">
@@ -13860,6 +13878,22 @@ const v_RULE_DETAIL = [
   {n:'Default fallback', f:'*', op:'DEFAULT', v:'route_to_lims'}
 ];
 
+// Per-pack stateful rules — seeded from v_RULE_DETAIL on first access.
+// Lets users add / edit / delete rules and have changes persist across re-renders.
+const v_PACK_RULES = {};
+let v_packRuleIdCounter = 1;
+function v_getPackRules(packId) {
+  if (!v_PACK_RULES[packId]) {
+    const r = v_ruleById(packId);
+    const slice = v_RULE_DETAIL.slice(0, Math.min(r ? r.count : 0, v_RULE_DETAIL.length));
+    v_PACK_RULES[packId] = slice.map(rd => ({
+      _id: 'pr-' + (v_packRuleIdCounter++),
+      n: rd.n, f: rd.f, op: rd.op, v: rd.v, enabled: true
+    }));
+  }
+  return v_PACK_RULES[packId];
+}
+
 const v_VERSIONS = [
   {ver:'current', status:'approved', date:'2d ago', author:'Sarah Chen', changes:'Added LOINC 13457-7 (LDL calc) mapping; tightened OBR-7 datetime parser.'},
   {ver:'prev-1', status:'deprecated', date:'14d ago', author:'Marcus Webb', changes:'Fixed PID-7 timezone issue; added NTE-3 array concat.'},
@@ -14073,7 +14107,8 @@ const v_ICONS = {
   phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
   grid:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>',
   diff:'<path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>',
-  back:'<polyline points="15 18 9 12 15 6"/>'
+  back:'<polyline points="15 18 9 12 15 6"/>',
+  trash:'<polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>'
 };
 function v_svg(name) { return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${v_ICONS[name]||''}</svg>`; }
 
@@ -14520,8 +14555,10 @@ function v_switchModTab(tab) {
   else if (tab === 'lookups') v_renderLookups();
   else if (tab === 'approvals') v_renderApprovalsPane();
 }
-function v_tabBar(scope, tabs, scopeId) {
-  return `<div class="v-detail-subtabs">${tabs.map(t => `<div class="v-detail-subtab ${v_activeDetailTab[scope]===t.k?'active':''}" onclick="v_setDetailTab('${scope}','${t.k}','${v_esc(scopeId)}')">${v_esc(t.l)}</div>`).join('')}</div>`;
+function v_tabBar(scope, tabs, scopeId, rightAction) {
+  const tabsHtml = `<div class="v-detail-subtabs">${tabs.map(t => `<div class="v-detail-subtab ${v_activeDetailTab[scope]===t.k?'active':''}" onclick="v_setDetailTab('${scope}','${t.k}','${v_esc(scopeId)}')">${v_esc(t.l)}</div>`).join('')}</div>`;
+  if (!rightAction) return tabsHtml;
+  return `<div class="v-detail-subtabs-row">${tabsHtml}<div class="v-detail-subtabs-row-action">${rightAction}</div></div>`;
 }
 function v_setDetailTab(scope, tab, id) {
   v_activeDetailTab[scope] = tab;
@@ -17448,8 +17485,6 @@ function v_openRule(id) {
       <div class="v-kv-row"><span class="v-kv-k">Vendor</span><span class="v-kv-v">${v?`<span class="v-link-chip" onclick="v_openVendor('${v.id}')">${v_svg('flask')}${v_esc(v.name)}</span>`:'<span style="color:var(--text-tertiary);font-style:italic">Generic</span>'}</span></div>
       <div class="v-kv-row"><span class="v-kv-k">Logic preview</span><span class="v-kv-v mono" style="font-size:11.5px">${v_esc(r.logic)}</span></div>
     </div></div></div>`;
-  } else if (tab === 'rules') {
-    body = `<div class="card"><div class="v-panel-head"><div class="v-panel-title">Rules in this pack</div></div><div class="v-panel-body"><div class="v-rule-list">${v_RULE_DETAIL.slice(0, Math.min(r.count,v_RULE_DETAIL.length)).map(rd => `<div class="v-rule-item"><span class="v-rule-item-name">${v_esc(rd.n)}</span><span class="v-rule-item-field">${v_esc(rd.f)}</span><span class="v-rule-item-op">${v_esc(rd.op)}</span><span class="v-rule-item-val">${v_esc(rd.v)}</span></div>`).join('')}</div></div></div>`;
   } else if (tab === 'expr') {
     const tree = `IF (case_type IN [Surgery, Cytology])
   AND (vendor = "${v?v.name:'*'}")
@@ -17464,6 +17499,13 @@ ELSE → fall_through(next_pack)`;
   } else if (tab === 'pipelines') {
     body = `<div class="card"><div class="v-panel-head"><div class="v-panel-title">Templates using this pack (${linkedTpls.length})</div></div><div>${linkedTpls.map(t => `<div class="v-usedby-row" onclick="v_openTemplate('${t.id}')"><div><div class="v-usedby-name">${v_esc(t.name)}</div><div class="v-usedby-meta">${v_esc(t.id)}</div></div><span class="v-spill ${t.status}">${v_cap(t.status)}</span></div>`).join('')}</div></div>`;
   }
+  // Render Rules-in-pack body using stateful per-pack list (so add/edit/delete persist)
+  if (tab === 'rules') {
+    const packRules = v_getPackRules(id);
+    body = `<div class="card"><div class="v-panel-head"><div><div class="v-panel-title">Rules in this pack</div><div class="v-panel-sub">${packRules.length} rule${packRules.length===1?'':'s'} · evaluated top-down per message</div></div></div><div class="v-panel-body"><div class="v-rule-list">${packRules.length === 0 ? `<div style="text-align:center;padding:36px;color:var(--text-tertiary);font-size:12.5px">No rules yet — click <b>+ Add rule</b> above to create one.</div>` : packRules.map((rd, idx) => `<div class="v-rule-item v-rule-item-editable"><span class="v-rule-item-name">${v_esc(rd.n)}</span><span class="v-rule-item-field">${v_esc(rd.f)}</span><span class="v-rule-item-op">${v_esc(rd.op)}</span><span class="v-rule-item-val">${v_esc(rd.v)}</span><span class="v-rule-item-actions"><button class="v-rule-item-action" title="Edit rule" onclick="v_openEditRule(&#39;${id}&#39;,${idx})">${v_svg('edit')}</button><button class="v-rule-item-action danger" title="Delete rule" onclick="v_confirmDeleteRule(&#39;${id}&#39;,${idx})">${v_svg('trash')}</button></span></div>`).join('')}</div></div></div>`;
+  }
+  // Build tab-strip right-action: + Add rule button (always visible on rule pack detail)
+  const addRuleBtn = `<button class="btn btn-primary btn-sm" onclick="v_openAddRule(&#39;${id}&#39;)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add rule</button>`;
   el.innerHTML = `<div class="v-detail-head">
     <button class="v-detail-back" onclick="navigate('vendors')">${v_svg('back')}Back to library</button>
     <div class="v-detail-head-row">
@@ -17473,10 +17515,236 @@ ELSE → fall_through(next_pack)`;
         <div class="v-detail-head-tags"><span class="v-cap-pill">${r.count} rules</span><span class="v-spill ${r.status}">${v_cap(r.status)}</span>${v?`<span class="v-link-chip" onclick="v_openVendor('${v.id}')">${v_svg('flask')}${v_esc(v.name)}</span>`:'<span class="v-cap-chip">Generic</span>'}</div>
       </div>
       <div class="v-detail-head-actions">
+        <button class="btn btn-secondary btn-sm" onclick="v_openEditPack('${r.id}')">${v_svg('edit')}Edit pack</button>
         <button class="btn btn-secondary btn-sm" onclick="v_openImpact('${r.id}','rule')">Impact</button>
       </div>
     </div>
-  </div>${v_tabBar('r', tabs, id)}<div class="v-detail-pane active">${body}</div>`;
+  </div>${v_tabBar('r', tabs, id, addRuleBtn)}<div class="v-detail-pane active">${body}</div>`;
+}
+
+// ===== Add/Edit Rule drawer (rule pack detail) =====
+let v_ruleDrawerState = { mode: 'add', packId: null, ruleIndex: null, n: '', f: '', op: 'EQUALS', v: '', enabled: true };
+const v_RULE_OPS = ['EQUALS','NOT EQUALS','IN','NOT IN','CONTAINS','STARTS WITH','ENDS WITH','REGEX','LT','LE','GT','GE','EXISTS','NOT EXISTS','DEFAULT'];
+
+function v_openAddRule(packId) {
+  // After clicking "+ Add rule" from any tab: ensure Rules in pack is the active tab so user lands there after save
+  v_activeDetailTab.r = 'rules';
+  v_ruleDrawerState = { mode: 'add', packId: packId, ruleIndex: null, n: '', f: '', op: 'EQUALS', v: '', enabled: true };
+  v_renderRuleDrawer();
+}
+function v_openEditRule(packId, ruleIndex) {
+  const rules = v_getPackRules(packId);
+  const r = rules[ruleIndex]; if (!r) return;
+  v_ruleDrawerState = { mode: 'edit', packId: packId, ruleIndex: ruleIndex, n: r.n, f: r.f, op: r.op, v: r.v, enabled: r.enabled !== false };
+  v_renderRuleDrawer();
+}
+function v_renderRuleDrawer() {
+  let overlay = document.getElementById('v-rule-drawer-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'v-rule-drawer-overlay';
+    overlay.className = 'v-rule-drawer-overlay';
+    overlay.onclick = v_closeRuleDrawer;
+    document.body.appendChild(overlay);
+    const drawer = document.createElement('div');
+    drawer.id = 'v-rule-drawer';
+    drawer.className = 'v-rule-drawer';
+    document.body.appendChild(drawer);
+  }
+  document.getElementById('v-rule-drawer').innerHTML = v_ruleDrawerHtml();
+  setTimeout(() => {
+    document.getElementById('v-rule-drawer-overlay').classList.add('open');
+    document.getElementById('v-rule-drawer').classList.add('open');
+    const nameInput = document.getElementById('v-rule-drawer-name');
+    if (nameInput) nameInput.focus();
+  }, 10);
+}
+function v_closeRuleDrawer() {
+  const overlay = document.getElementById('v-rule-drawer-overlay');
+  const drawer = document.getElementById('v-rule-drawer');
+  if (overlay) overlay.classList.remove('open');
+  if (drawer) drawer.classList.remove('open');
+}
+function v_ruleDrawerHtml() {
+  const s = v_ruleDrawerState;
+  const isEdit = s.mode === 'edit';
+  const opOptions = v_RULE_OPS.map(op => `<option value="${op}" ${s.op===op?'selected':''}>${op}</option>`).join('');
+  return `
+    <div class="v-rule-drawer-head">
+      <div class="v-rule-drawer-title">${v_svg('shield')}${isEdit ? 'Edit rule' : 'Add rule'}</div>
+      <button class="v-rule-drawer-close" onclick="v_closeRuleDrawer()" title="Close">${v_svg('x')}</button>
+    </div>
+    <div class="v-rule-drawer-body">
+      <div class="v-rule-info">${v_svg('info')}<div>Each rule is a single condition on a message field. Combine rules in the <b>Expression tree</b> tab to control routing.</div></div>
+      <div class="v-rule-field">
+        <label class="v-rule-label">Rule name<span class="req">*</span></label>
+        <input type="text" id="v-rule-drawer-name" class="v-rule-input" placeholder="e.g., STAT escalation" value="${v_esc(s.n)}" oninput="v_ruleDrawerState.n=this.value" autocomplete="off"/>
+        <div class="v-rule-hint">A short label so other admins can recognise this rule at a glance.</div>
+      </div>
+      <div class="v-rule-field">
+        <label class="v-rule-label">Field<span class="req">*</span></label>
+        <input type="text" class="v-rule-input mono" placeholder="e.g., priority, OBR-5, patient.age" value="${v_esc(s.f)}" oninput="v_ruleDrawerState.f=this.value" autocomplete="off"/>
+        <div class="v-rule-hint">The message field this rule checks. Use HL7 paths or JSON dot-notation.</div>
+      </div>
+      <div class="v-rule-field">
+        <label class="v-rule-label">Operator<span class="req">*</span></label>
+        <select class="v-rule-select" onchange="v_ruleDrawerState.op=this.value">${opOptions}</select>
+      </div>
+      <div class="v-rule-field">
+        <label class="v-rule-label">Value</label>
+        <input type="text" class="v-rule-input mono" placeholder='e.g., STAT  /  (Surgery, Cytology)  /  ^[A-Z]+$' value="${v_esc(s.v)}" oninput="v_ruleDrawerState.v=this.value" autocomplete="off"/>
+        <div class="v-rule-hint">For IN / NOT IN: use comma-separated values in parentheses. Leave blank for EXISTS / DEFAULT.</div>
+      </div>
+      <div class="v-rule-field">
+        <div class="v-rule-toggle-row">
+          <div>
+            <div class="v-rule-toggle-label">Rule enabled</div>
+            <div class="v-rule-toggle-sub">Disabled rules are skipped at runtime.</div>
+          </div>
+          <label style="position:relative;display:inline-block;width:36px;height:20px;cursor:pointer">
+            <input type="checkbox" ${s.enabled?'checked':''} onchange="v_ruleDrawerState.enabled=this.checked" style="opacity:0;width:0;height:0"/>
+            <span style="position:absolute;inset:0;background:${s.enabled?'var(--accent)':'var(--border)'};border-radius:10px;transition:background var(--t-fast)"></span>
+            <span style="position:absolute;top:2px;left:${s.enabled?'18px':'2px'};width:16px;height:16px;background:#fff;border-radius:50%;transition:left var(--t-fast);box-shadow:0 1px 2px rgba(0,0,0,0.2)"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="v-rule-drawer-foot">
+      <div class="v-rule-drawer-foot-left">
+        ${isEdit ? `<button class="btn btn-secondary btn-sm" style="color:var(--danger);border-color:var(--danger)" onclick="v_confirmDeleteRule(&#39;${s.packId}&#39;,${s.ruleIndex},true)">${v_svg('trash')}Delete</button>` : ''}
+      </div>
+      <div class="v-rule-drawer-foot-right">
+        <button class="btn btn-ghost btn-sm" onclick="v_closeRuleDrawer()">Cancel</button>
+        <button class="btn btn-primary btn-sm" onclick="v_savePackRule()">${v_svg('check')}${isEdit?'Save changes':'Add rule'}</button>
+      </div>
+    </div>`;
+}
+function v_savePackRule() {
+  const s = v_ruleDrawerState;
+  if (!s.n.trim()) { v_showToast('Rule name is required', 'warning'); return; }
+  if (!s.f.trim()) { v_showToast('Field is required', 'warning'); return; }
+  const rules = v_getPackRules(s.packId);
+  if (s.mode === 'edit' && s.ruleIndex !== null && rules[s.ruleIndex]) {
+    rules[s.ruleIndex].n = s.n.trim();
+    rules[s.ruleIndex].f = s.f.trim();
+    rules[s.ruleIndex].op = s.op;
+    rules[s.ruleIndex].v = s.v.trim();
+    rules[s.ruleIndex].enabled = s.enabled;
+    v_showToast('Rule updated', 'success');
+  } else {
+    rules.push({
+      _id: 'pr-' + (v_packRuleIdCounter++),
+      n: s.n.trim(), f: s.f.trim(), op: s.op, v: s.v.trim(), enabled: s.enabled
+    });
+    // bump the pack count so KPI tile reflects new total
+    const r = v_ruleById(s.packId); if (r) r.count = rules.length;
+    v_showToast('Rule added', 'success');
+  }
+  v_closeRuleDrawer();
+  v_openRule(s.packId);
+}
+function v_confirmDeleteRule(packId, ruleIndex, fromDrawer) {
+  const rules = v_getPackRules(packId);
+  const r = rules[ruleIndex]; if (!r) return;
+  if (!confirm(`Delete rule "${r.n}"?\n\nThis cannot be undone.`)) return;
+  rules.splice(ruleIndex, 1);
+  const pack = v_ruleById(packId); if (pack) pack.count = rules.length;
+  v_showToast('Rule deleted', 'success');
+  if (fromDrawer) v_closeRuleDrawer();
+  v_openRule(packId);
+}
+
+// ===== Edit Pack drawer (pack metadata) =====
+let v_editPackState = { packId: null, name: '', status: 'draft', ver: '', notes: '' };
+const v_PACK_STATUSES = ['draft','review','approved','deprecated'];
+
+function v_openEditPack(packId) {
+  const r = v_ruleById(packId); if (!r) return;
+  v_editPackState = { packId: packId, name: r.name, status: r.status, ver: r.ver, notes: '' };
+  let overlay = document.getElementById('v-editpack-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'v-editpack-overlay';
+    overlay.className = 'v-rule-drawer-overlay';
+    overlay.onclick = v_closeEditPack;
+    document.body.appendChild(overlay);
+    const drawer = document.createElement('div');
+    drawer.id = 'v-editpack-drawer';
+    drawer.className = 'v-rule-drawer';
+    document.body.appendChild(drawer);
+  }
+  document.getElementById('v-editpack-drawer').innerHTML = v_editPackHtml();
+  setTimeout(() => {
+    document.getElementById('v-editpack-overlay').classList.add('open');
+    document.getElementById('v-editpack-drawer').classList.add('open');
+    const nameInput = document.getElementById('v-editpack-name');
+    if (nameInput) nameInput.focus();
+  }, 10);
+}
+function v_closeEditPack() {
+  const overlay = document.getElementById('v-editpack-overlay');
+  const drawer = document.getElementById('v-editpack-drawer');
+  if (overlay) overlay.classList.remove('open');
+  if (drawer) drawer.classList.remove('open');
+}
+function v_editPackHtml() {
+  const s = v_editPackState;
+  const r = v_ruleById(s.packId);
+  const statusOptions = v_PACK_STATUSES.map(st => `<option value="${st}" ${s.status===st?'selected':''}>${v_cap(st)}</option>`).join('');
+  return `
+    <div class="v-rule-drawer-head">
+      <div class="v-rule-drawer-title">${v_svg('edit')}Edit rule pack</div>
+      <button class="v-rule-drawer-close" onclick="v_closeEditPack()" title="Close">${v_svg('x')}</button>
+    </div>
+    <div class="v-rule-drawer-body">
+      <div class="v-rule-info">${v_svg('info')}<div>Editing pack-level details. To change individual rules, use <b>+ Add rule</b> or hover a rule to edit it.</div></div>
+      <div class="v-rule-field">
+        <label class="v-rule-label">Pack ID</label>
+        <input type="text" class="v-rule-input mono" value="${v_esc(s.packId)}" disabled style="background:var(--bg-subtle);color:var(--text-tertiary)"/>
+        <div class="v-rule-hint">Pack ID is system-generated and cannot be changed.</div>
+      </div>
+      <div class="v-rule-field">
+        <label class="v-rule-label">Pack name<span class="req">*</span></label>
+        <input type="text" id="v-editpack-name" class="v-rule-input" value="${v_esc(s.name)}" oninput="v_editPackState.name=this.value" autocomplete="off"/>
+      </div>
+      <div class="v-rule-field">
+        <label class="v-rule-label">Version<span class="req">*</span></label>
+        <input type="text" class="v-rule-input mono" value="${v_esc(s.ver)}" oninput="v_editPackState.ver=this.value" autocomplete="off" placeholder="e.g., v2.3"/>
+        <div class="v-rule-hint">Bump the version when publishing changes (e.g. v2.3 → v2.4).</div>
+      </div>
+      <div class="v-rule-field">
+        <label class="v-rule-label">Status<span class="req">*</span></label>
+        <select class="v-rule-select" onchange="v_editPackState.status=this.value">${statusOptions}</select>
+        <div class="v-rule-hint">Draft → Review → Approved is the standard lifecycle. Deprecated retires this pack.</div>
+      </div>
+      <div class="v-rule-field">
+        <label class="v-rule-label">Change notes</label>
+        <input type="text" class="v-rule-input" placeholder="What changed in this revision?" oninput="v_editPackState.notes=this.value" autocomplete="off"/>
+        <div class="v-rule-hint">Recorded in the pack history for audit (optional).</div>
+      </div>
+    </div>
+    <div class="v-rule-drawer-foot">
+      <div class="v-rule-drawer-foot-left"></div>
+      <div class="v-rule-drawer-foot-right">
+        <button class="btn btn-ghost btn-sm" onclick="v_closeEditPack()">Cancel</button>
+        <button class="btn btn-primary btn-sm" onclick="v_saveEditPack()">${v_svg('check')}Save changes</button>
+      </div>
+    </div>`;
+}
+function v_saveEditPack() {
+  const s = v_editPackState;
+  if (!s.name.trim()) { v_showToast('Pack name is required', 'warning'); return; }
+  if (!s.ver.trim()) { v_showToast('Version is required', 'warning'); return; }
+  const r = v_ruleById(s.packId); if (!r) return;
+  r.name = s.name.trim();
+  r.ver = s.ver.trim();
+  r.status = s.status;
+  r.updated = 'just now';
+  v_showToast('Rule pack updated', 'success');
+  v_closeEditPack();
+  v_openRule(s.packId);
+  // Update breadcrumb
+  const bc = document.getElementById('breadcrumbCurrent'); if (bc) bc.textContent = r.name;
 }
 
 // === LOOKUP DETAIL ===
@@ -17726,7 +17994,7 @@ function v_selectUseCase(id) { v_createState.useCase = id; v_renderCreateWizard(
 function v_renderStep2() {
   const uc = v_USE_CASES.find(u => u.id === v_createState.useCase);
   const filtered = (uc && uc.vTypes) ? v_VENDORS.filter(v => uc.vTypes.includes(v.type)) : v_VENDORS;
-  return `<h2 class="v-wiz-step-title">Pick a vendor</h2><p class="v-wiz-step-sub">${uc && uc.msg ? `Showing vendors that support <b>${v_esc(uc.msg)}</b>. ` : ''}Greyed-out vendors don't accept this message type.</p>
+  return `<div style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:6px"><h2 class="v-wiz-step-title" style="margin:0">Pick a vendor</h2><button class="btn btn-secondary btn-sm" onclick="v_startOnboarding()">${v_svg('plus')}Onboard new vendor</button></div><p class="v-wiz-step-sub">${uc && uc.msg ? `Showing vendors that support <b>${v_esc(uc.msg)}</b>. ` : ''}Greyed-out vendors don't accept this message type.</p>
   ${filtered.map(v => {
     const compat = uc && uc.msg ? v_checkCompat(v, uc.msg) : { ok:true };
     const cls = v_createState.vendorId === v.id ? 'selected' : '';
