@@ -826,6 +826,148 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
 .direction-tag svg { width: 11px; height: 11px; }
 .direction-tag.in { background: var(--accent-tint); color: var(--accent); }
 .direction-tag.out { background: var(--info-soft); color: var(--info); }
+.direction-tag.bi { background: linear-gradient(90deg, var(--accent-tint) 50%, var(--info-soft) 50%); color: var(--text); border:1px solid var(--border); }
+
+/* ====== EVENTS TAB ====== */
+.evt-callout { display:flex; gap:10px; padding:12px 16px; background:var(--accent-soft); border:1px solid rgba(15,94,90,0.18); border-radius:var(--r-md); font-size:12.5px; line-height:1.55; color:var(--text); margin-bottom:14px; }
+.evt-callout svg { width:16px; height:16px; flex-shrink:0; color:var(--accent); margin-top:2px; }
+.evt-table { width:100%; border-collapse:collapse; font-size:12.5px; }
+.evt-table thead th { text-align:left; padding:10px 12px; font-size:10.5px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:var(--text-tertiary); border-bottom:1px solid var(--border); background:var(--surface-soft); }
+.evt-table thead th:first-child { padding-left:18px; }
+.evt-table tbody td { padding:11px 12px; border-bottom:1px solid var(--border-soft); vertical-align:middle; }
+.evt-table tbody td:first-child { padding-left:18px; }
+.evt-table tbody tr:last-child td { border-bottom:none; }
+.evt-table tbody tr:hover { background:var(--bg-subtle); }
+.evt-table tbody tr.disabled td { opacity:0.55; }
+.evt-row-name { font-weight:500; color:var(--text); }
+.evt-row-name-meta { font-family:var(--font-mono); font-size:10.5px; color:var(--text-tertiary); margin-top:1px; }
+.evt-tag-dir { display:inline-flex; align-items:center; gap:4px; padding:2px 8px; border-radius:var(--r-sm); font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; }
+.evt-tag-dir.in { background:var(--accent-tint); color:var(--accent); }
+.evt-tag-dir.out { background:var(--info-soft); color:var(--info); }
+.evt-tag-dir svg { width:10px; height:10px; }
+.evt-trigger { font-family:var(--font-mono); font-size:11px; color:var(--text-secondary); padding:2px 7px; background:var(--bg-subtle); border-radius:var(--r-sm); display:inline-block; }
+.evt-trigger.passive { color:var(--text-tertiary); font-style:italic; background:transparent; padding-left:0; }
+.evt-conditions { font-size:11.5px; color:var(--text-secondary); line-height:1.5; max-width:340px; }
+.evt-msg { font-family:var(--font-mono); font-size:11px; padding:2px 8px; background:var(--surface-soft); border:1px solid var(--border); border-radius:var(--r-sm); color:var(--text); display:inline-block; }
+.evt-status-toggle { display:inline-flex; align-items:center; gap:6px; font-size:11.5px; cursor:pointer; }
+.evt-status-toggle .dot { width:8px; height:8px; border-radius:50%; }
+.evt-status-toggle.active { color:var(--success); }
+.evt-status-toggle.active .dot { background:var(--success); box-shadow:0 0 0 3px var(--success-soft); }
+.evt-status-toggle.inactive { color:var(--text-tertiary); }
+.evt-status-toggle.inactive .dot { background:var(--text-tertiary); opacity:0.5; }
+.evt-row-actions { display:flex; gap:4px; justify-content:flex-end; opacity:0; transition:opacity var(--t-fast); }
+.evt-table tbody tr:hover .evt-row-actions { opacity:1; }
+.evt-row-action { width:26px; height:26px; padding:0; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-sm); cursor:pointer; display:grid; place-items:center; color:var(--text-secondary); transition:all var(--t-fast); }
+.evt-row-action:hover { background:var(--bg-subtle); color:var(--accent); border-color:var(--accent); }
+.evt-row-action.danger:hover { color:var(--danger); border-color:var(--danger); background:var(--danger-soft); }
+.evt-row-action svg { width:13px; height:13px; }
+
+.evt-aside-row { display:grid; grid-template-columns:1.4fr 1fr; gap:14px; }
+.evt-aside-card { display:flex; flex-direction:column; }
+.evt-flow { display:grid; grid-template-columns:auto 1fr auto; gap:18px; align-items:center; min-height:96px; }
+.evt-flow-side { padding:14px 18px; background:var(--surface-soft); border:1.5px solid var(--border); border-radius:var(--r-md); }
+.evt-flow-side-label { font-weight:600; font-size:13px; color:var(--text); }
+.evt-flow-arrows { display:flex; flex-direction:column; gap:6px; padding:6px 0; }
+.evt-flow-arrow { display:flex; align-items:center; gap:8px; padding:5px 10px; background:var(--surface); border:1px solid var(--border); border-radius:14px; font-size:11.5px; }
+.evt-flow-arrow.in { color:var(--accent); border-color:rgba(15,94,90,0.2); }
+.evt-flow-arrow.out { color:var(--info); border-color:rgba(76,135,224,0.2); }
+.evt-flow-arrow.disabled { opacity:0.4; }
+.evt-flow-arrow svg { width:14px; height:14px; flex-shrink:0; }
+.evt-flow-arrow .evt-flow-arrow-name { font-weight:500; }
+.evt-flow-arrow .evt-flow-arrow-msg { font-family:var(--font-mono); font-size:10.5px; color:var(--text-tertiary); margin-left:auto; }
+
+/* ====== ADD/EDIT EVENT drawer ====== */
+.evt-drawer-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.32); z-index:200; opacity:0; pointer-events:none; transition:opacity var(--t-fast); }
+.evt-drawer-overlay.open { opacity:1; pointer-events:auto; }
+.evt-drawer { position:fixed; top:0; right:0; bottom:0; width:520px; max-width:95vw; background:var(--surface); border-left:1px solid var(--border); box-shadow:-8px 0 24px rgba(0,0,0,0.10); z-index:201; transform:translateX(100%); transition:transform 0.22s cubic-bezier(0.4,0,0.2,1); display:flex; flex-direction:column; }
+.evt-drawer.open { transform:translateX(0); }
+.evt-drawer-head { padding:14px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+.evt-drawer-title { font-size:15px; font-weight:600; color:var(--text); display:flex; align-items:center; gap:8px; }
+.evt-drawer-title svg { width:16px; height:16px; color:var(--accent); }
+.evt-drawer-close { background:none; border:none; cursor:pointer; padding:6px; border-radius:var(--r-sm); color:var(--text-secondary); display:grid; place-items:center; }
+.evt-drawer-close:hover { background:var(--bg-subtle); }
+.evt-drawer-close svg { width:16px; height:16px; }
+.evt-drawer-body { flex:1; overflow-y:auto; padding:16px 18px 24px; }
+.evt-drawer-foot { padding:12px 18px; border-top:1px solid var(--border); display:flex; gap:8px; justify-content:space-between; align-items:center; flex-shrink:0; background:var(--surface-soft); }
+.evt-field { margin-bottom:14px; }
+.evt-field:last-child { margin-bottom:0; }
+.evt-label { display:block; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-secondary); margin-bottom:6px; }
+.evt-label .req { color:var(--danger); margin-left:3px; }
+.evt-input, .evt-select { width:100%; padding:8px 11px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-md); font-size:13px; font-family:inherit; color:var(--text); }
+.evt-input:focus, .evt-select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft); }
+.evt-textarea { width:100%; padding:8px 11px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-md); font-size:12px; font-family:var(--font-mono); color:var(--text); resize:vertical; min-height:64px; }
+.evt-hint { font-size:11px; color:var(--text-tertiary); margin-top:4px; line-height:1.4; }
+.evt-radio-row { display:flex; gap:10px; }
+.evt-radio-card { flex:1; padding:11px 13px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--r-md); cursor:pointer; transition:all var(--t-fast); }
+.evt-radio-card.selected { border-color:var(--accent); background:var(--accent-soft); }
+.evt-radio-card-title { font-size:12.5px; font-weight:600; color:var(--text); display:flex; align-items:center; gap:6px; }
+.evt-radio-card-title svg { width:13px; height:13px; }
+.evt-radio-card-sub { font-size:11px; color:var(--text-tertiary); margin-top:3px; }
+.evt-toggle-row { display:flex; align-items:center; justify-content:space-between; padding:10px 12px; background:var(--bg-subtle); border-radius:var(--r-md); border:1px solid var(--border-soft); }
+.evt-toggle-label { font-size:12.5px; color:var(--text); }
+.evt-toggle-sub { font-size:11px; color:var(--text-tertiary); margin-top:2px; }
+/* ====== END EVENTS TAB ====== */
+
+/* ====== WIZARD EVENTS BUNDLE PICKER (Step 1) ====== */
+.wiz-evt-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; }
+.wiz-evt-card { display:block; padding:12px 14px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--r-md); cursor:pointer; transition:all var(--t-fast); position:relative; }
+.wiz-evt-card:hover { border-color:var(--accent); }
+.wiz-evt-card.selected { border-color:var(--accent); background:var(--accent-soft); }
+.wiz-evt-card-row { display:flex; gap:11px; align-items:flex-start; }
+.wiz-evt-checkbox { width:20px; height:20px; border:1.5px solid var(--border); border-radius:4px; flex-shrink:0; display:grid; place-items:center; background:var(--surface); transition:all var(--t-fast); margin-top:1px; }
+.wiz-evt-card.selected .wiz-evt-checkbox { background:var(--accent); border-color:var(--accent); color:#fff; }
+.wiz-evt-checkbox svg { width:14px; height:14px; }
+.wiz-evt-card-title { font-size:13px; font-weight:600; color:var(--text); display:flex; align-items:center; gap:8px; }
+.wiz-evt-badge { display:inline-block; padding:1px 7px; background:var(--accent-tint); color:var(--accent); font-size:9.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; border-radius:8px; }
+.wiz-evt-card-meta { display:flex; align-items:center; gap:8px; margin-top:4px; }
+.wiz-evt-dir { padding:1px 6px; border-radius:var(--r-sm); font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; }
+.wiz-evt-dir.in { background:var(--accent-tint); color:var(--accent); }
+.wiz-evt-dir.out { background:var(--info-soft); color:var(--info); }
+.wiz-evt-msg { font-family:var(--font-mono); font-size:10.5px; color:var(--text-tertiary); }
+.wiz-evt-card-desc { font-size:11.5px; color:var(--text-secondary); margin-top:6px; line-height:1.5; }
+/* ====== END WIZARD EVENTS BUNDLE PICKER ====== */
+
+/* ====== PER-EVENT MAPPING CONTEXT BAR (Mapping Detail) ====== */
+.m-event-ctx-bar { display:flex; align-items:center; gap:14px; padding:10px 16px; background:linear-gradient(90deg, var(--accent-soft) 0%, var(--surface) 100%); border:1px solid rgba(15,94,90,0.18); border-radius:var(--r-md); margin-bottom:14px; flex-wrap:wrap; }
+.m-event-ctx-left { display:flex; align-items:center; gap:10px; flex:1; min-width:0; }
+.m-event-ctx-back { display:grid; place-items:center; width:28px; height:28px; padding:0; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-sm); cursor:pointer; color:var(--text-secondary); transition:all var(--t-fast); flex-shrink:0; }
+.m-event-ctx-back:hover { background:var(--bg-subtle); color:var(--accent); border-color:var(--accent); }
+.m-event-ctx-back svg { width:14px; height:14px; }
+.m-event-ctx-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--accent); flex-shrink:0; }
+.m-event-ctx-select { padding:6px 28px 6px 12px; background:var(--surface) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'><path fill='%23666' d='M2 4l4 4 4-4'/></svg>") no-repeat right 9px center / 9px; border:1px solid var(--border); border-radius:var(--r-sm); font-family:inherit; font-size:12.5px; color:var(--text); cursor:pointer; appearance:none; min-width:300px; }
+.m-event-ctx-select:hover { border-color:var(--accent); }
+.m-event-ctx-select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft); }
+.m-event-ctx-right { display:flex; align-items:center; gap:10px; flex-shrink:0; font-size:11.5px; color:var(--text-secondary); flex-wrap:wrap; }
+.m-event-ctx-right strong { color:var(--text); font-weight:600; }
+.m-event-ctx-status { display:inline-flex; align-items:center; gap:5px; font-size:11px; }
+.m-event-ctx-status .dot { width:6px; height:6px; border-radius:50%; }
+.m-event-ctx-status.active { color:var(--success); }
+.m-event-ctx-status.active .dot { background:var(--success); box-shadow:0 0 0 2px var(--success-soft); }
+.m-event-ctx-status.disabled { color:var(--text-tertiary); }
+.m-event-ctx-status.disabled .dot { background:var(--text-tertiary); opacity:0.5; }
+/* Tag for event direction shown next to the dropdown after selection (sticky badge) */
+.m-event-ctx-tag { padding:2px 8px; border-radius:var(--r-sm); font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; flex-shrink:0; }
+.m-event-ctx-tag.in { background:var(--accent-tint); color:var(--accent); }
+.m-event-ctx-tag.out { background:var(--info-soft); color:var(--info); }
+/* "Configure mapping" link in events table */
+.evt-mapping-link { display:inline-flex; align-items:center; gap:5px; padding:4px 9px; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-sm); font-size:11px; color:var(--text-secondary); cursor:pointer; transition:all var(--t-fast); text-decoration:none; }
+.evt-mapping-link:hover { background:var(--accent-soft); color:var(--accent); border-color:var(--accent); }
+.evt-mapping-link svg { width:11px; height:11px; }
+.evt-mapping-link .evt-mapping-status { font-size:9.5px; padding:1px 5px; border-radius:7px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; }
+.evt-mapping-link .evt-mapping-status.configured { background:var(--success-soft); color:var(--success); }
+.evt-mapping-link .evt-mapping-status.draft { background:var(--warning-soft); color:var(--warning); }
+.evt-mapping-link .evt-mapping-status.pending { background:var(--bg-subtle); color:var(--text-tertiary); }
+/* ====== END PER-EVENT MAPPING CONTEXT BAR ====== */
+/* Events count chip on Interfaces list */
+.events-chip { display:inline-flex; align-items:center; gap:5px; padding:3px 9px; background:var(--bg-subtle); border:1px solid var(--border); border-radius:10px; font-size:11px; font-weight:500; color:var(--text); white-space:nowrap; }
+.events-chip svg { width:11px; height:11px; color:var(--text-secondary); }
+.events-chip.multi { background:var(--accent-soft); border-color:rgba(15,94,90,0.18); color:var(--accent); }
+.events-chip.multi svg { color:var(--accent); }
+.events-chip-mini { display:inline-flex; gap:2px; margin-left:4px; }
+.events-chip-mini i { width:5px; height:5px; border-radius:50%; }
+.events-chip-mini i.in { background:var(--accent); }
+.events-chip-mini i.out { background:var(--info); }
+.events-chip-mini i.off { background:var(--text-tertiary); opacity:0.4; }
 
 /* Colored dot prefix on KPI labels (Interfaces page style) */
 .kpi-dot {
@@ -885,14 +1027,15 @@ input, select, textarea { font-family: inherit; font-size: inherit; }
 .interfaces-table { table-layout: fixed; width: 100%; }
 .interfaces-table thead th { font-size: 10.5px; padding: 10px 8px; white-space: nowrap; }
 .interfaces-table tbody td { padding: 10px 8px; }
-.interfaces-table thead th:nth-child(1), .interfaces-table tbody td:nth-child(1) { width: 20%; padding-left: 16px; }
+.interfaces-table thead th:nth-child(1), .interfaces-table tbody td:nth-child(1) { width: 18%; padding-left: 16px; }
 .interfaces-table thead th:nth-child(2), .interfaces-table tbody td:nth-child(2) { width: 95px; }
-.interfaces-table thead th:nth-child(3), .interfaces-table tbody td:nth-child(3) { width: 90px; }
-.interfaces-table thead th:nth-child(4), .interfaces-table tbody td:nth-child(4) { width: 110px; }
-.interfaces-table thead th:nth-child(5), .interfaces-table tbody td:nth-child(5) { width: 78px; }
-.interfaces-table thead th:nth-child(6), .interfaces-table tbody td:nth-child(6) { width: 70px; }
-.interfaces-table thead th:nth-child(7), .interfaces-table tbody td:nth-child(7) { width: 170px; }
-.interfaces-table thead th:nth-child(8), .interfaces-table tbody td:nth-child(8) { width: 72px; padding-right: 16px; }
+.interfaces-table thead th:nth-child(3), .interfaces-table tbody td:nth-child(3) { width: 92px; }
+.interfaces-table thead th:nth-child(4), .interfaces-table tbody td:nth-child(4) { width: 90px; }
+.interfaces-table thead th:nth-child(5), .interfaces-table tbody td:nth-child(5) { width: 110px; }
+.interfaces-table thead th:nth-child(6), .interfaces-table tbody td:nth-child(6) { width: 78px; }
+.interfaces-table thead th:nth-child(7), .interfaces-table tbody td:nth-child(7) { width: 70px; }
+.interfaces-table thead th:nth-child(8), .interfaces-table tbody td:nth-child(8) { width: 150px; }
+.interfaces-table thead th:nth-child(9), .interfaces-table tbody td:nth-child(9) { width: 72px; padding-right: 16px; }
 
 /* ============ MESSAGES TABLES ============ */
 .messages-table { table-layout: fixed; width: 100%; }
@@ -6903,6 +7046,7 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
               <tr>
                 <th class="sortable"><span class="th-inner">Interface<svg class="sort-icon-tri" viewBox="0 0 10 10" fill="currentColor"><polygon points="5 7.5 1.5 3 8.5 3"/></svg></span></th>
                 <th class="sortable"><span class="th-inner">Direction<svg class="sort-icon-tri" viewBox="0 0 10 10" fill="currentColor"><polygon points="5 7.5 1.5 3 8.5 3"/></svg></span></th>
+                <th><span class="th-inner">Events</span></th>
                 <th class="sortable"><span class="th-inner">Vendor<svg class="sort-icon-tri" viewBox="0 0 10 10" fill="currentColor"><polygon points="5 7.5 1.5 3 8.5 3"/></svg></span></th>
                 <th class="sortable"><span class="th-inner">Status<svg class="sort-icon-tri" viewBox="0 0 10 10" fill="currentColor"><polygon points="5 7.5 1.5 3 8.5 3"/></svg></span></th>
                 <th class="sortable" style="text-align:right"><span class="th-inner" style="justify-content:flex-end">Today<svg class="sort-icon-tri active" viewBox="0 0 10 10" fill="currentColor"><polygon points="5 7.5 1.5 3 8.5 3"/></svg></span></th>
@@ -7476,6 +7620,7 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
         <!-- Sub-tabs -->
         <div class="mod-tabs">
           <button class="mod-tab active" onclick="switchSubTab('interface-detail','overview',this)">Overview</button>
+          <button class="mod-tab" onclick="switchSubTab('interface-detail','events',this)">Events<span class="mtab-count" id="ifaceEventsCount">6</span></button>
           <button class="mod-tab" onclick="switchSubTab('interface-detail','txns',this)">Transactions<span class="mtab-count">84.2K</span></button>
           <button class="mod-tab" onclick="switchSubTab('interface-detail','failures',this)">Failures<span class="mtab-count">142</span></button>
           <button class="mod-tab" onclick="switchSubTab('interface-detail','connectivity',this)">Connectivity</button>
@@ -7546,6 +7691,61 @@ body.dark .brand-mark::after { border-color: rgba(255,255,255,0.25); }
                 <div class="sla-row"><span class="sla-vendor">Result code missing</span><div class="sla-bar-wrap"><div class="sla-bar-fill" style="width:7%"></div></div><span class="sla-pct">10 · 7%</span></div>
               </div>
               <div style="padding:10px 18px;border-top:1px solid var(--border-soft);background:var(--surface-soft);font-size:11px;color:var(--text-tertiary);display:flex;justify-content:space-between"><span>Ask VitalHub AI to explain any reason</span><span style="color:var(--accent);cursor:pointer;font-weight:500">Full breakdown →</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ EVENTS TAB (multi-event interface bundle) ============ -->
+        <div class="subtab-pane" data-tab="events">
+          <div class="evt-callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <div><b>One interface, many events.</b> Bundle every message type that travels between you and this partner — outbound orders, inbound ACKs, vendor-initiated updates, results — into a single relationship. Each event has its own LIS trigger, conditions, and mapping.</div>
+          </div>
+
+          <div class="card" style="margin-bottom:14px">
+            <div class="panel-head" style="display:flex;justify-content:space-between;align-items:center;gap:14px">
+              <div>
+                <div class="panel-title">Events on this interface</div>
+                <div class="panel-sub" id="evtPanelSub">6 events configured · 5 active · 1 disabled</div>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="evtOpenAdd()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add event</button>
+            </div>
+            <div class="panel-body" style="padding:0">
+              <table class="evt-table" id="evtTable">
+                <thead>
+                  <tr>
+                    <th>Event</th>
+                    <th style="width:120px">Direction</th>
+                    <th style="width:165px">LIS trigger</th>
+                    <th>Additional conditions</th>
+                    <th style="width:135px">HL7 message</th>
+                    <th style="width:140px">Mapping</th>
+                    <th style="width:90px">Status</th>
+                    <th style="width:96px;text-align:right;padding-right:16px">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="evtTbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="evt-aside-row">
+            <div class="card evt-aside-card">
+              <div class="panel-head"><div class="panel-title" style="font-size:13px">Event flow on this interface</div></div>
+              <div class="panel-body" style="padding:14px 18px">
+                <div class="evt-flow">
+                  <div class="evt-flow-side"><div class="evt-flow-side-label">LIMS</div></div>
+                  <div class="evt-flow-arrows" id="evtFlowArrows"></div>
+                  <div class="evt-flow-side"><div class="evt-flow-side-label">Quest</div></div>
+                </div>
+                <div style="font-size:11px;color:var(--text-tertiary);margin-top:10px;line-height:1.5">Visual summary of which events go which way. Each arrow is one event. Disabled events are dimmed.</div>
+              </div>
+            </div>
+            <div class="card evt-aside-card">
+              <div class="panel-head"><div class="panel-title" style="font-size:13px">Why this matters</div></div>
+              <div class="panel-body" style="padding:14px 18px;font-size:12px;line-height:1.55;color:var(--text-secondary)">
+                Today the lab admin has to create separate interfaces for "Send-Out Order to Quest" and "Quest Results Inbound" and remember they belong together. With multiple events on one interface, the full Quest conversation lives in one place — including <b>vendor-initiated order updates</b> that previously had nowhere to go.
+              </div>
             </div>
           </div>
         </div>
@@ -13912,6 +14112,89 @@ const v_USE_CASES = [
   { id:'uc-custom', icon:'sliders', title:'Custom — I know what I need', desc:'Skip the use case picker. Pick vendor, message, and direction yourself.', msg:null, dir:null, vTypes:null }
 ];
 
+// === EVENTS PREVIEW DATA ===
+// Catalog of available HL7 / FHIR / EDI events that can be bundled into an interface
+const EVENTS_CATALOG = [
+  { id:'evt-orm-o01',     name:'Send-Out Order',           direction:'out', hl7:'ORM^O01',   trigger:'case.routed_to_sendout' },
+  { id:'evt-orm-cancel',  name:'Order Cancel',             direction:'out', hl7:'ORM^O01 (OCR)', trigger:'case.sendout_cancelled' },
+  { id:'evt-ack-o01',     name:'Order Acknowledgment',     direction:'in',  hl7:'ACK^O01',   trigger:'(receives from vendor)' },
+  { id:'evt-oru-r01',     name:'Result Delivery',          direction:'in',  hl7:'ORU^R01',   trigger:'(receives from vendor)' },
+  { id:'evt-orm-ssu',     name:'Specimen Tracking Update', direction:'out', hl7:'ORM^O01 (SSU)', trigger:'specimen.status_changed' },
+  { id:'evt-orm-update',  name:'Vendor Order Update',      direction:'in',  hl7:'ORM^O01',   trigger:'(receives from vendor)' },
+  { id:'evt-adt-a01',     name:'Patient Admit',            direction:'in',  hl7:'ADT^A01',   trigger:'(receives from EMR)' },
+  { id:'evt-adt-a08',     name:'Patient Update',           direction:'in',  hl7:'ADT^A08',   trigger:'(receives from EMR)' },
+  { id:'evt-mdm-t02',     name:'Report Document',          direction:'out', hl7:'MDM^T02',   trigger:'case.report_signed_out' },
+  { id:'evt-billing',     name:'Billing Event',            direction:'out', hl7:'DFT^P03',   trigger:'case.finalised' }
+];
+
+// Per-interface events. Interfaces not listed here are treated as single-event (legacy).
+// Demo seed: 3 interfaces shown as multi-event / bidirectional for the preview
+const INTERFACE_EVENTS = {
+  'IF-2847': [
+    { id:'pe-001', evtId:'evt-orm-o01',    name:'Send-Out Order',           direction:'out', hl7:'ORM^O01',         trigger:'case.routed_to_sendout', conditions:'SendOutPartner = Quest AND Status = "Ready to Send"', enabled:true,  mappingId:'MAP-Q-ORM-OUT',   mapStatus:'configured', fieldCount:17 },
+    { id:'pe-002', evtId:'evt-orm-cancel', name:'Order Cancel',             direction:'out', hl7:'ORM^O01 (OCR)',   trigger:'case.sendout_cancelled', conditions:'SendOutPartner = Quest', enabled:true,  mappingId:'MAP-Q-OCR',       mapStatus:'configured', fieldCount:9 },
+    { id:'pe-003', evtId:'evt-orm-ssu',    name:'Specimen Tracking Update', direction:'out', hl7:'ORM^O01 (SSU)',   trigger:'specimen.status_changed', conditions:'Specimen.SendOutPartner = Quest AND NewStatus ≠ OldStatus', enabled:true, mappingId:'MAP-Q-SSU',       mapStatus:'configured', fieldCount:11 },
+    { id:'pe-004', evtId:'evt-ack-o01',    name:'Order Acknowledgment',     direction:'in',  hl7:'ACK^O01',         trigger:'(receives from Quest)', conditions:'On message receipt', enabled:true,  mappingId:'MAP-Q-ACK',       mapStatus:'configured', fieldCount:4 },
+    { id:'pe-005', evtId:'evt-oru-r01',    name:'Result Delivery',          direction:'in',  hl7:'ORU^R01',         trigger:'(receives from Quest)', conditions:'Match by placer order #', enabled:true,  mappingId:'MAP-Q-ORU-IN',    mapStatus:'configured', fieldCount:23 },
+    { id:'pe-006', evtId:'evt-orm-update', name:'Vendor Order Update',      direction:'in',  hl7:'ORM^O01',         trigger:'(receives from Quest)', conditions:'Vendor-initiated change · merges back to LIMS order', enabled:false, mappingId:'MAP-Q-VOU',       mapStatus:'draft',      fieldCount:14 }
+  ],
+  'IF-2655': [
+    { id:'pe-101', evtId:'evt-orm-o01',    name:'Send-Out Order',           direction:'out', hl7:'ORM^O01',         trigger:'case.routed_to_sendout', conditions:'SendOutPartner = LabCorp', enabled:true, mappingId:'MAP-LC-ORM',     mapStatus:'configured', fieldCount:18 },
+    { id:'pe-102', evtId:'evt-ack-o01',    name:'Order Acknowledgment',     direction:'in',  hl7:'ACK^O01',         trigger:'(receives from LabCorp)', conditions:'On message receipt', enabled:true, mappingId:'MAP-LC-ACK',     mapStatus:'configured', fieldCount:4 },
+    { id:'pe-103', evtId:'evt-oru-r01',    name:'Result Delivery',          direction:'in',  hl7:'ORU^R01',         trigger:'(receives from LabCorp)', conditions:'Match by placer order #', enabled:true, mappingId:'MAP-LC-ORU',     mapStatus:'pending',    fieldCount:0  }
+  ],
+  'IF-2831': [
+    { id:'pe-201', evtId:'evt-adt-a01',    name:'Patient Admit',            direction:'in',  hl7:'ADT^A01',         trigger:'(receives from Epic)', conditions:'On admit event', enabled:true, mappingId:'MAP-EP-ADT-A01', mapStatus:'configured', fieldCount:21 },
+    { id:'pe-202', evtId:'evt-adt-a08',    name:'Patient Update',           direction:'in',  hl7:'ADT^A08',         trigger:'(receives from Epic)', conditions:'On demographic change', enabled:true, mappingId:'MAP-EP-ADT-A08', mapStatus:'configured', fieldCount:21 }
+  ]
+};
+function getEventsForInterface(ifaceId) { return INTERFACE_EVENTS[ifaceId] || null; }
+function getDirectionForInterface(ifaceId, fallback) {
+  const events = getEventsForInterface(ifaceId);
+  if (!events || events.length <= 1) return fallback;
+  const dirs = new Set(events.filter(e => e.enabled).map(e => e.direction));
+  if (dirs.size > 1) return 'bi';
+  return dirs.has('out') ? 'out' : 'in';
+}
+let activeEventId = null; // tracks per-event selector state on interface-detail screen
+
+// Display names for interface IDs (used by the per-event mapping context bar)
+const INTERFACE_NAMES = {
+  'IF-2847': 'Quest · ORU Results',
+  'IF-2655': 'LabCorp · Send-outs',
+  'IF-2831': 'Epic · ADT Orders',
+  'IF-2718': 'Northwell · ORM Inbound',
+  'IF-2601': 'Sonora · Billing charges',
+  'IF-2547': 'Roche Cobas · Instrument',
+  'IF-2489': 'Cerner · ADT Feed',
+  'IF-2402': 'MedData · Warehouse Export'
+};
+
+// Per-event mapping context — set when user opens mapping detail from an event row.
+// null = legacy single-mapping flow (vendors → mappings list).
+let m_currentEventContext = null;
+function openMappingFromEvent(ifaceId, eventIdx) {
+  m_currentEventContext = { ifaceId: ifaceId, eventIdx: eventIdx };
+  // Pick a stable mapping to show as the underlying record (for preview, always the first one).
+  // Production would use event.mappingId to look up the real per-event mapping.
+  const mappingToOpen = (typeof v_MAPPINGS !== 'undefined' && v_MAPPINGS.length) ? v_MAPPINGS[0].id : null;
+  if (mappingToOpen && typeof v_openMapping === 'function') {
+    v_openMapping(mappingToOpen);
+  }
+}
+function evtCtxSwitchEvent(eventIdx) {
+  if (!m_currentEventContext) return;
+  m_currentEventContext.eventIdx = parseInt(eventIdx, 10);
+  // Re-render mapping detail so the bar updates
+  const mapId = (typeof v_MAPPINGS !== 'undefined' && v_MAPPINGS.length) ? v_MAPPINGS[0].id : null;
+  if (mapId && typeof v_openMapping === 'function') v_openMapping(mapId);
+}
+function evtCtxClear() {
+  m_currentEventContext = null;
+}
+// === END EVENTS PREVIEW DATA ===
+
+
 const v_QUICK_CREATE = [
   { id:'qc-ep-adt', vId:'VND-EPIC', tplId:'TPL-EP-ADT-MASTER', label:'ADT from Epic', desc:'Pre-filled with master template, defaults, MLLP connection.', count:47 },
   { id:'qc-q-oru', vId:'VND-QUEST', tplId:'TPL-Q-ORU-MASTER', label:'ORU from Quest', desc:'Lab results inbound. SFTP, real-time mode.', count:18 },
@@ -15171,6 +15454,27 @@ function v_openMapping(id) {
         <button class="m-back-btn" onclick="navigate('vendors')" style="margin-left:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>Back to Mappings</button>
       </div>
     </div>
+    ${(function(){
+      // Per-event mapping context bar — only when this mapping was opened from an interface event
+      if (!m_currentEventContext) return '';
+      const events = getEventsForInterface(m_currentEventContext.ifaceId) || [];
+      const ev = events[m_currentEventContext.eventIdx];
+      if (!ev) return '';
+      const ifaceName = INTERFACE_NAMES[m_currentEventContext.ifaceId] || m_currentEventContext.ifaceId;
+      const opts = events.map((e, i) => `<option value="${i}" ${i === m_currentEventContext.eventIdx ? 'selected' : ''}>${e.name} · ${e.hl7} · ${e.direction === 'out' ? 'Outbound' : 'Inbound'}${e.enabled ? '' : ' (disabled)'}</option>`).join('');
+      return `<div class="m-event-ctx-bar">
+        <div class="m-event-ctx-left">
+          <button class="m-event-ctx-back" title="Back to interface" onclick="evtCtxClear();navigate('interfaces')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <div class="m-event-ctx-label">Configuring mapping for event</div>
+          <select class="m-event-ctx-select" onchange="evtCtxSwitchEvent(this.value)">${opts}</select>
+          <span class="m-event-ctx-tag ${ev.direction}">${ev.direction === 'out' ? '↑ Outbound' : '↓ Inbound'}</span>
+        </div>
+        <div class="m-event-ctx-right">
+          <span>on <strong>${v_esc(ifaceName)}</strong> · ${v_esc(m_currentEventContext.ifaceId)}</span>
+          <span class="m-event-ctx-status ${ev.enabled ? 'active' : 'disabled'}"><span class="dot"></span>${ev.enabled ? 'Active' : 'Disabled'}</span>
+        </div>
+      </div>`;
+    })()}
 
     <!-- 9-tab strip -->
     <div class="m-tab-strip">
@@ -17970,7 +18274,7 @@ function v_renderCreateWizard() {
 }
 
 function v_canAdvanceStep() {
-  if (v_createState.step === 1) return !!v_createState.useCase;
+  if (v_createState.step === 1) return !!v_createState.useCase && Array.isArray(v_createState.eventsBundle) && v_createState.eventsBundle.length > 0;
   if (v_createState.step === 2) return !!v_createState.vendorId;
   if (v_createState.step === 3) return !!v_createState.tplId;
   if (v_createState.step === 4) return !!v_createState.mappingId && !!v_createState.ruleId;
@@ -17979,8 +18283,7 @@ function v_canAdvanceStep() {
 }
 
 function v_renderStep1() {
-  return `<h2 class="v-wiz-step-title">What are you trying to do?</h2><p class="v-wiz-step-sub">Pick a use case. We'll filter vendors and templates to match.</p>
-  <div class="v-uc-grid">${v_USE_CASES.map(uc => `<div class="v-uc-card ${v_createState.useCase===uc.id?'selected':''}" onclick="v_selectUseCase('${uc.id}')">
+  const ucBlock = `<div class="v-uc-grid">${v_USE_CASES.map(uc => `<div class="v-uc-card ${v_createState.useCase===uc.id?'selected':''}" onclick="v_selectUseCase('${uc.id}')">
     <div class="v-uc-card-icon">${v_svg(uc.icon)}</div>
     <div class="v-uc-card-text">
       <div class="v-uc-card-title">${v_esc(uc.title)}</div>
@@ -17988,8 +18291,77 @@ function v_renderStep1() {
       ${uc.msg ? `<div class="v-uc-card-meta"><span>${v_esc(uc.msg)}</span><span>·</span><span>${v_esc(uc.dir)}</span></div>` : ''}
     </div>
   </div>`).join('')}</div>`;
+  let eventsBlock = '';
+  if (v_createState.useCase) {
+    const uc = v_USE_CASES.find(u => u.id === v_createState.useCase);
+    const suggested = wizSuggestedEvents(uc);
+    if (!v_createState.eventsBundle) v_createState.eventsBundle = suggested.filter(e => e.suggested).map(e => e.id);
+    eventsBlock = `<div style="margin-top:28px;padding-top:24px;border-top:1px dashed var(--border)">
+      <h2 class="v-wiz-step-title" style="font-size:18px;margin-bottom:4px">Which events should this interface handle?</h2>
+      <p class="v-wiz-step-sub">One interface can carry many events — outbound orders, inbound ACKs, vendor-initiated updates, results. Pick everything that applies. You can add more later.</p>
+      <div class="wiz-evt-grid">
+        ${suggested.map(e => {
+          const checked = (v_createState.eventsBundle || []).includes(e.id);
+          return `<label class="wiz-evt-card ${checked?'selected':''} ${e.suggested?'suggested':''}">
+            <input type="checkbox" ${checked?'checked':''} onchange="wizToggleEvent('${e.id}', this.checked)" style="position:absolute;opacity:0;pointer-events:none"/>
+            <div class="wiz-evt-card-row">
+              <div class="wiz-evt-checkbox">${checked?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>':''}</div>
+              <div style="flex:1;min-width:0">
+                <div class="wiz-evt-card-title">${e.name} ${e.suggested?'<span class="wiz-evt-badge">suggested</span>':''}</div>
+                <div class="wiz-evt-card-meta"><span class="wiz-evt-dir ${e.direction}">${e.direction === 'out' ? '↑ Out' : '↓ In'}</span><span class="wiz-evt-msg">${e.hl7}</span></div>
+                <div class="wiz-evt-card-desc">${e.desc}</div>
+              </div>
+            </div>
+          </label>`;
+        }).join('')}
+      </div>
+      <div style="margin-top:14px;padding:11px 14px;background:var(--accent-soft);border:1px solid rgba(15,94,90,0.18);border-radius:var(--r-md);font-size:12px;color:var(--text);display:flex;gap:8px;align-items:flex-start">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;color:var(--accent)"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <div><b>${(v_createState.eventsBundle || []).length} event${(v_createState.eventsBundle||[]).length===1?'':'s'} selected.</b> ${(v_createState.eventsBundle||[]).length > 1 ? 'This will create one bidirectional interface bundling all selected events.' : 'You can add more events to this interface after it is created.'}</div>
+      </div>
+    </div>`;
+  }
+  return `<h2 class="v-wiz-step-title">What are you trying to do?</h2><p class="v-wiz-step-sub">Pick a use case. We'll filter vendors and templates to match.</p>${ucBlock}${eventsBlock}`;
 }
-function v_selectUseCase(id) { v_createState.useCase = id; v_renderCreateWizard(); }
+function v_selectUseCase(id) {
+  v_createState.useCase = id;
+  // reset events bundle so the suggested defaults reload for the new use case
+  delete v_createState.eventsBundle;
+  v_renderCreateWizard();
+}
+function wizToggleEvent(evtId, checked) {
+  if (!v_createState.eventsBundle) v_createState.eventsBundle = [];
+  const idx = v_createState.eventsBundle.indexOf(evtId);
+  if (checked && idx < 0) v_createState.eventsBundle.push(evtId);
+  if (!checked && idx >= 0) v_createState.eventsBundle.splice(idx, 1);
+  v_renderCreateWizard();
+}
+function wizSuggestedEvents(uc) {
+  // Suggest a sensible default bundle based on the use case's primary direction + known partner conversation patterns
+  const all = [
+    { id:'evt-orm-o01',    name:'Send-Out Order',           direction:'out', hl7:'ORM^O01',         desc:'Send a new order to the partner.' },
+    { id:'evt-ack-o01',    name:'Order Acknowledgment',     direction:'in',  hl7:'ACK^O01',         desc:'Partner confirms they received the order.' },
+    { id:'evt-orm-update', name:'Vendor Order Update',      direction:'in',  hl7:'ORM^O01',         desc:'Partner sends back changes — test substitution, cancellation, priority change.' },
+    { id:'evt-orm-cancel', name:'Order Cancel',             direction:'out', hl7:'ORM^O01 (OCR)',   desc:'Cancel a previously sent order.' },
+    { id:'evt-orm-ssu',    name:'Specimen Tracking Update', direction:'out', hl7:'ORM^O01 (SSU)',   desc:'Tell the partner about specimen status changes.' },
+    { id:'evt-oru-r01',    name:'Result Delivery',          direction:'in',  hl7:'ORU^R01',         desc:'Partner sends results back.' },
+    { id:'evt-adt-a01',    name:'Patient Admit',            direction:'in',  hl7:'ADT^A01',         desc:'Partner sends a patient admission event.' },
+    { id:'evt-adt-a08',    name:'Patient Update',           direction:'in',  hl7:'ADT^A08',         desc:'Partner sends a patient demographic update.' },
+    { id:'evt-mdm-t02',    name:'Report Document',          direction:'out', hl7:'MDM^T02',         desc:'Send a finalised report document.' },
+    { id:'evt-billing',    name:'Billing Event',            direction:'out', hl7:'DFT^P03',         desc:'Send billing charges for a finalised case.' }
+  ];
+  const ucId = uc ? uc.id : null;
+  // Build a "suggested" boolean per event based on the use case
+  const suggestedSet = new Set();
+  if (ucId === 'uc-orm-out') ['evt-orm-o01','evt-ack-o01','evt-orm-update','evt-oru-r01'].forEach(x => suggestedSet.add(x));
+  else if (ucId === 'uc-results-ref') ['evt-orm-o01','evt-ack-o01','evt-oru-r01'].forEach(x => suggestedSet.add(x));
+  else if (ucId === 'uc-adt-emr') ['evt-adt-a01','evt-adt-a08'].forEach(x => suggestedSet.add(x));
+  else if (ucId === 'uc-fhir') ['evt-orm-o01','evt-ack-o01','evt-oru-r01'].forEach(x => suggestedSet.add(x));
+  else if (ucId === 'uc-mdm') ['evt-mdm-t02'].forEach(x => suggestedSet.add(x));
+  else if (uc && uc.dir === 'Outbound') ['evt-orm-o01','evt-ack-o01'].forEach(x => suggestedSet.add(x));
+  else if (uc && uc.dir === 'Inbound')  ['evt-oru-r01'].forEach(x => suggestedSet.add(x));
+  return all.map(e => ({ ...e, suggested: suggestedSet.has(e.id) }));
+}
 
 function v_renderStep2() {
   const uc = v_USE_CASES.find(u => u.id === v_createState.useCase);
@@ -18850,6 +19222,305 @@ function v_addComment() { const txt = document.getElementById('v_commentInput')?
     }
     if (typeof _origNav === 'function') return _origNav.apply(this, arguments);
   };
+})();
+
+// === EVENTS PREVIEW · Events tab rendering + Add/Edit Event drawer ===
+const CURRENT_IFACE_ID = 'IF-2847'; // preview hardcodes Quest as the focus interface
+let evtDrawerState = { mode:'add', eventIdx:null, name:'', evtId:null, direction:'out', hl7:'', trigger:'', conditions:'', enabled:true };
+
+function evtRenderTab() {
+  const events = getEventsForInterface(CURRENT_IFACE_ID) || [];
+  // Update count chip on tab button
+  const countChip = document.getElementById('ifaceEventsCount');
+  if (countChip) countChip.textContent = events.length;
+  // Update sub
+  const sub = document.getElementById('evtPanelSub');
+  const active = events.filter(e => e.enabled).length;
+  const off = events.length - active;
+  if (sub) sub.textContent = events.length + ' event' + (events.length===1?'':'s') + ' configured · ' + active + ' active' + (off > 0 ? ' · ' + off + ' disabled' : '');
+  // Render rows
+  const tbody = document.getElementById('evtTbody');
+  if (!tbody) return;
+  tbody.innerHTML = events.map((e, idx) => {
+    const dirIcon = e.direction === 'out'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 12 5 19 12"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="19 12 12 19 5 12"/></svg>';
+    const dirLabel = e.direction === 'out' ? 'Outbound' : 'Inbound';
+    const triggerHtml = e.trigger.startsWith('(') ? `<span class="evt-trigger passive">${e.trigger}</span>` : `<span class="evt-trigger">${e.trigger}</span>`;
+    return `<tr class="${e.enabled ? '' : 'disabled'}" data-evt-idx="${idx}">
+      <td>
+        <div class="evt-row-name">${e.name}</div>
+        <div class="evt-row-name-meta">${e.evtId || 'pe-?'}</div>
+      </td>
+      <td><span class="evt-tag-dir ${e.direction}">${dirIcon}${dirLabel}</span></td>
+      <td>${triggerHtml}</td>
+      <td><div class="evt-conditions">${e.conditions || '<span style="color:var(--text-tertiary)">No additional conditions</span>'}</div></td>
+      <td><span class="evt-msg">${e.hl7}</span></td>
+      <td>
+        <span class="evt-mapping-link" onclick="event.stopPropagation();openMappingFromEvent('${CURRENT_IFACE_ID}',${idx})" title="Configure mapping for this event">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h6M4 12h6M4 18h4"/><path d="M14 6h6M14 12h6M14 18h6"/></svg>
+          ${e.fieldCount > 0 ? e.fieldCount + ' fields' : 'Pending'}
+          <span class="evt-mapping-status ${e.mapStatus || 'pending'}">${e.mapStatus || 'pending'}</span>
+        </span>
+      </td>
+      <td>
+        <span class="evt-status-toggle ${e.enabled ? 'active' : 'inactive'}" onclick="evtToggleEnabled(${idx})" title="Click to ${e.enabled ? 'disable' : 'enable'}">
+          <span class="dot"></span>${e.enabled ? 'Active' : 'Disabled'}
+        </span>
+      </td>
+      <td style="text-align:right;padding-right:16px">
+        <div class="evt-row-actions">
+          <button class="evt-row-action" title="Edit event" onclick="evtOpenEdit(${idx})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button class="evt-row-action danger" title="Delete event" onclick="evtConfirmDelete(${idx})"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+  evtRenderFlow(events);
+}
+
+function evtRenderFlow(events) {
+  const wrap = document.getElementById('evtFlowArrows');
+  if (!wrap) return;
+  wrap.innerHTML = events.map(e => {
+    const arrow = e.direction === 'out'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><polyline points="14 5 21 12 14 19"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="12" x2="3" y2="12"/><polyline points="10 5 3 12 10 19"/></svg>';
+    return `<div class="evt-flow-arrow ${e.direction} ${e.enabled ? '' : 'disabled'}">${arrow}<span class="evt-flow-arrow-name">${e.name}</span><span class="evt-flow-arrow-msg">${e.hl7}</span></div>`;
+  }).join('');
+}
+
+function evtToggleEnabled(idx) {
+  const events = getEventsForInterface(CURRENT_IFACE_ID);
+  if (!events || !events[idx]) return;
+  events[idx].enabled = !events[idx].enabled;
+  evtRenderTab();
+  if (typeof v_showToast === 'function') v_showToast(`Event "${events[idx].name}" ${events[idx].enabled ? 'enabled' : 'disabled'}`, 'info');
+}
+
+function evtOpenAdd() {
+  evtDrawerState = { mode:'add', eventIdx:null, name:'', evtId:null, direction:'out', hl7:'ORM^O01', trigger:'', conditions:'', enabled:true };
+  evtRenderDrawer();
+}
+function evtOpenEdit(idx) {
+  const events = getEventsForInterface(CURRENT_IFACE_ID);
+  const e = events ? events[idx] : null;
+  if (!e) return;
+  evtDrawerState = { mode:'edit', eventIdx:idx, name:e.name, evtId:e.evtId, direction:e.direction, hl7:e.hl7, trigger:e.trigger, conditions:e.conditions, enabled:e.enabled };
+  evtRenderDrawer();
+}
+function evtConfirmDelete(idx) {
+  const events = getEventsForInterface(CURRENT_IFACE_ID);
+  const e = events ? events[idx] : null;
+  if (!e) return;
+  if (!confirm(`Remove event "${e.name}" from this interface?\n\nThis only removes it from this interface — the event type stays in the catalog.`)) return;
+  events.splice(idx, 1);
+  evtRenderTab();
+  if (typeof v_showToast === 'function') v_showToast('Event removed', 'info');
+}
+
+function evtRenderDrawer() {
+  let overlay = document.getElementById('evtDrawerOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'evtDrawerOverlay';
+    overlay.className = 'evt-drawer-overlay';
+    overlay.onclick = evtCloseDrawer;
+    document.body.appendChild(overlay);
+    const drawer = document.createElement('div');
+    drawer.id = 'evtDrawer';
+    drawer.className = 'evt-drawer';
+    document.body.appendChild(drawer);
+  }
+  document.getElementById('evtDrawer').innerHTML = evtDrawerHtml();
+  setTimeout(() => {
+    document.getElementById('evtDrawerOverlay').classList.add('open');
+    document.getElementById('evtDrawer').classList.add('open');
+    const nameInp = document.getElementById('evtDrawerName');
+    if (nameInp) nameInp.focus();
+  }, 10);
+}
+function evtCloseDrawer() {
+  const ov = document.getElementById('evtDrawerOverlay');
+  const dr = document.getElementById('evtDrawer');
+  if (ov) ov.classList.remove('open');
+  if (dr) dr.classList.remove('open');
+}
+function evtDrawerHtml() {
+  const s = evtDrawerState;
+  const isEdit = s.mode === 'edit';
+  const catalogOpts = ['<option value="">— pick from catalog or fill in custom below —</option>'].concat(
+    EVENTS_CATALOG.map(c => `<option value="${c.id}" ${s.evtId === c.id ? 'selected':''}>${c.name} · ${c.hl7}</option>`)
+  ).join('');
+  return `
+    <div class="evt-drawer-head">
+      <div class="evt-drawer-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        ${isEdit ? 'Edit event' : 'Add event'}
+      </div>
+      <button class="evt-drawer-close" onclick="evtCloseDrawer()" title="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="evt-drawer-body">
+      ${!isEdit ? `<div class="evt-field">
+        <label class="evt-label">Pick from catalog</label>
+        <select class="evt-select" onchange="evtPickCatalog(this.value)">${catalogOpts}</select>
+        <div class="evt-hint">Picking a catalog event auto-fills the fields below. You can still adjust them.</div>
+      </div>` : ''}
+      <div class="evt-field">
+        <label class="evt-label">Event name<span class="req">*</span></label>
+        <input type="text" id="evtDrawerName" class="evt-input" value="${(s.name||'').replace(/"/g,'&quot;')}" oninput="evtDrawerState.name=this.value" placeholder="e.g., Vendor Order Update" autocomplete="off"/>
+      </div>
+      <div class="evt-field">
+        <label class="evt-label">Direction<span class="req">*</span></label>
+        <div class="evt-radio-row">
+          <div class="evt-radio-card ${s.direction==='out'?'selected':''}" onclick="evtDrawerState.direction='out';evtRenderDrawer()">
+            <div class="evt-radio-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 12 5 19 12"/></svg>Outbound</div>
+            <div class="evt-radio-card-sub">LIMS sends to vendor — driven by a LIS trigger event</div>
+          </div>
+          <div class="evt-radio-card ${s.direction==='in'?'selected':''}" onclick="evtDrawerState.direction='in';evtRenderDrawer()">
+            <div class="evt-radio-card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="19 12 12 19 5 12"/></svg>Inbound</div>
+            <div class="evt-radio-card-sub">Vendor sends to LIMS — fires on message receipt</div>
+          </div>
+        </div>
+      </div>
+      <div class="evt-field">
+        <label class="evt-label">HL7 / FHIR message<span class="req">*</span></label>
+        <input type="text" class="evt-input" style="font-family:var(--font-mono);font-size:12px" value="${(s.hl7||'').replace(/"/g,'&quot;')}" oninput="evtDrawerState.hl7=this.value" placeholder="e.g., ORM^O01"/>
+      </div>
+      <div class="evt-field">
+        <label class="evt-label">${s.direction === 'out' ? 'LIS trigger event' : 'Trigger'}${s.direction === 'out' ? '<span class="req">*</span>' : ''}</label>
+        <input type="text" class="evt-input" style="font-family:var(--font-mono);font-size:12px" value="${(s.trigger||'').replace(/"/g,'&quot;')}" oninput="evtDrawerState.trigger=this.value" placeholder="${s.direction === 'out' ? 'e.g., case.routed_to_sendout' : '(receives from vendor)'}"/>
+        <div class="evt-hint">${s.direction === 'out' ? 'The LIS event that fires this outbound message. The LIS owns this — interface admin documents it for traceability.' : 'Inbound events fire on message receipt. Use a label like "(receives from Quest)".'}</div>
+      </div>
+      <div class="evt-field">
+        <label class="evt-label">Additional conditions</label>
+        <textarea class="evt-textarea" oninput="evtDrawerState.conditions=this.value" placeholder='e.g., SendOutPartner = Quest AND Status = "Ready to Send"'>${s.conditions || ''}</textarea>
+        <div class="evt-hint">Optional. Filters which cases produce this event. Leave blank for "always".</div>
+      </div>
+      <div class="evt-field">
+        <div class="evt-toggle-row">
+          <div>
+            <div class="evt-toggle-label">Event active</div>
+            <div class="evt-toggle-sub">Disabled events are kept in the bundle but skipped at runtime.</div>
+          </div>
+          <label style="position:relative;display:inline-block;width:36px;height:20px;cursor:pointer">
+            <input type="checkbox" ${s.enabled?'checked':''} onchange="evtDrawerState.enabled=this.checked" style="opacity:0;width:0;height:0"/>
+            <span style="position:absolute;inset:0;background:${s.enabled?'var(--accent)':'var(--border)'};border-radius:10px;transition:background 0.15s"></span>
+            <span style="position:absolute;top:2px;left:${s.enabled?'18px':'2px'};width:16px;height:16px;background:#fff;border-radius:50%;transition:left 0.15s;box-shadow:0 1px 2px rgba(0,0,0,0.2)"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="evt-drawer-foot">
+      <div>${isEdit ? `<button class="btn btn-secondary btn-sm" style="color:var(--danger);border-color:var(--danger)" onclick="evtConfirmDelete(${s.eventIdx});evtCloseDrawer()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Delete</button>` : ''}</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost btn-sm" onclick="evtCloseDrawer()">Cancel</button>
+        <button class="btn btn-primary btn-sm" onclick="evtSaveDrawer()">${isEdit ? 'Save changes' : 'Add event'}</button>
+      </div>
+    </div>`;
+}
+function evtPickCatalog(catId) {
+  if (!catId) return;
+  const c = EVENTS_CATALOG.find(x => x.id === catId);
+  if (!c) return;
+  evtDrawerState.evtId = c.id;
+  evtDrawerState.name = c.name;
+  evtDrawerState.direction = c.direction;
+  evtDrawerState.hl7 = c.hl7;
+  evtDrawerState.trigger = c.trigger;
+  evtRenderDrawer();
+}
+function evtSaveDrawer() {
+  const s = evtDrawerState;
+  if (!s.name.trim()) { if (typeof v_showToast === 'function') v_showToast('Event name is required', 'warning'); return; }
+  if (!s.hl7.trim()) { if (typeof v_showToast === 'function') v_showToast('HL7 / FHIR message is required', 'warning'); return; }
+  if (!INTERFACE_EVENTS[CURRENT_IFACE_ID]) INTERFACE_EVENTS[CURRENT_IFACE_ID] = [];
+  const events = INTERFACE_EVENTS[CURRENT_IFACE_ID];
+  if (s.mode === 'edit' && s.eventIdx !== null && events[s.eventIdx]) {
+    Object.assign(events[s.eventIdx], { name:s.name.trim(), evtId:s.evtId, direction:s.direction, hl7:s.hl7.trim(), trigger:s.trigger.trim(), conditions:s.conditions.trim(), enabled:s.enabled });
+    if (typeof v_showToast === 'function') v_showToast('Event updated', 'success');
+  } else {
+    events.push({ id:'pe-' + Date.now(), evtId:s.evtId, name:s.name.trim(), direction:s.direction, hl7:s.hl7.trim(), trigger:s.trigger.trim(), conditions:s.conditions.trim(), enabled:s.enabled });
+    if (typeof v_showToast === 'function') v_showToast('Event added', 'success');
+  }
+  evtCloseDrawer();
+  evtRenderTab();
+}
+
+// Re-render Events tab whenever its sub-tab is shown
+(function(){
+  const _origSwitch = window.switchSubTab;
+  if (typeof _origSwitch === 'function') {
+    window.switchSubTab = function(scope, tab, btn) {
+      const ret = _origSwitch.apply(this, arguments);
+      if (scope === 'interface-detail' && tab === 'events') evtRenderTab();
+      return ret;
+    };
+  }
+})();
+
+// === EVENTS PREVIEW · post-process Interfaces table to add Events column data + Bidirectional direction ===
+(function(){
+  function inDirIcon() { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="19 12 12 19 5 12"/></svg>'; }
+  function outDirIcon() { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 12 5 19 12"/></svg>'; }
+  function biDirIcon() { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><polyline points="7 23 3 19 7 15"/><line x1="3" y1="19" x2="21" y2="19"/><line x1="3" y1="5" x2="21" y2="5"/></svg>'; }
+  function eventDot() { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'; }
+
+  function buildEventsCellHtml(events) {
+    if (!events || events.length === 0) return '<span class="events-chip" title="Single event"><span style="font-weight:600">1</span><span style="color:var(--text-tertiary)">event</span></span>';
+    const enabled = events.filter(e => e.enabled);
+    const inCount = enabled.filter(e => e.direction === 'in').length;
+    const outCount = enabled.filter(e => e.direction === 'out').length;
+    const dots = enabled.slice(0, 6).map(e => `<i class="${e.direction === 'in' ? 'in' : 'out'}"></i>`).join('') + events.filter(e => !e.enabled).slice(0, 1).map(() => '<i class="off"></i>').join('');
+    const cls = events.length > 1 ? 'events-chip multi' : 'events-chip';
+    return `<span class="${cls}" title="${enabled.length} active · ${outCount} out · ${inCount} in">${eventDot()}<span style="font-weight:600">${events.length}</span><span style="color:inherit;opacity:0.75">events</span><span class="events-chip-mini">${dots}</span></span>`;
+  }
+  function buildDirectionTagHtml(dir) {
+    if (dir === 'bi') return `<span class="direction-tag bi" title="Bidirectional · multiple event types">${biDirIcon()}Bidirectional</span>`;
+    if (dir === 'out') return `<span class="direction-tag out">${outDirIcon()}Outbound</span>`;
+    return `<span class="direction-tag in">${inDirIcon()}Inbound</span>`;
+  }
+  function processInterfacesTable() {
+    const tbl = document.querySelector('.interfaces-table');
+    if (!tbl) return;
+    if (tbl.dataset.eventsProcessed === '1') return;
+    const rows = tbl.querySelectorAll('tbody tr');
+    rows.forEach(tr => {
+      // Skip empty / placeholder rows
+      const tds = tr.querySelectorAll('td');
+      if (tds.length < 6) return;
+      // Detect interface ID from name cell sub-text "IF-XXXX · ..."
+      const sub = tds[0].querySelector('div');
+      if (!sub) return;
+      const m = sub.textContent.match(/(IF-\d+)/);
+      const ifaceId = m ? m[1] : null;
+      const events = ifaceId ? getEventsForInterface(ifaceId) : null;
+
+      // Determine effective direction (for multi-event with mixed directions, override to 'bi')
+      let dir = 'in';
+      const dirSpan = tds[1].querySelector('.direction-tag');
+      if (dirSpan && dirSpan.classList.contains('out')) dir = 'out';
+      if (events && events.length > 1) {
+        const enabled = events.filter(e => e.enabled);
+        const dirs = new Set(enabled.map(e => e.direction));
+        if (dirs.size > 1) dir = 'bi';
+        else if (dirs.size === 1) dir = dirs.has('out') ? 'out' : 'in';
+      }
+      tds[1].innerHTML = buildDirectionTagHtml(dir);
+
+      // Insert events cell after Direction (column index 2)
+      const eventsTd = document.createElement('td');
+      eventsTd.innerHTML = buildEventsCellHtml(events);
+      tds[1].insertAdjacentElement('afterend', eventsTd);
+    });
+    tbl.dataset.eventsProcessed = '1';
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', processInterfacesTable);
+  } else {
+    processInterfacesTable();
+  }
 })();
 
 </script>
