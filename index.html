@@ -19473,7 +19473,7 @@ function evtSaveDrawer() {
     const outCount = enabled.filter(e => e.direction === 'out').length;
     const dots = enabled.slice(0, 6).map(e => `<i class="${e.direction === 'in' ? 'in' : 'out'}"></i>`).join('') + events.filter(e => !e.enabled).slice(0, 1).map(() => '<i class="off"></i>').join('');
     const cls = events.length > 1 ? 'events-chip multi' : 'events-chip';
-    return `<span class="${cls}" title="${enabled.length} active · ${outCount} out · ${inCount} in">${eventDot()}<span style="font-weight:600">${events.length}</span><span style="color:inherit;opacity:0.75">events</span><span class="events-chip-mini">${dots}</span></span>`;
+    return `<span class="${cls}" title="${enabled.length} active · ${outCount} out · ${inCount} in">${eventDot()}<span style="font-weight:600">${events.length}</span><span style="color:inherit;opacity:0.75">events</span></span>`;
   }
   function buildDirectionTagHtml(dir) {
     if (dir === 'bi') return `<span class="direction-tag bi" title="Bidirectional · multiple event types">${biDirIcon()}Bidirectional</span>`;
